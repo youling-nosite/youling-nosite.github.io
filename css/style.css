@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: rgb(20, 20, 20, 0.8);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* 背景 + 遮罩 */
@@ -11,7 +11,7 @@ body::before {
   inset: 0;
 
   background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.5)),
     url("/assets/images/bg-home.png");
 
   background-size: cover;
@@ -41,7 +41,7 @@ body::before {
 
 /* 卡片 */
 .card {
-  background: rgba(30,30,30,0.8);
+  background: rgba(30,30,30,0.6);
   padding: 20px;
   margin: 20px;
   border-radius: 10px;

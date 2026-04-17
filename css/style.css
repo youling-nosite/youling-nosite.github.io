@@ -46,10 +46,10 @@ body::before {
 .nav-btn {
   position: relative;
   display: inline-block;
-  padding: 10px 30px;
+  padding: 12px 40px;
   text-decoration: none;
   color: white;
-  background: #222222;
+  background: #d9d9d9;
   border-radius: 6px;
   overflow: hidden;
   font-weight: bold;
@@ -58,25 +58,26 @@ body::before {
 .nav-btn::before {
   content: "";
   position: absolute;
-  left: 10%;
+  left: 15%;
   top: 50%;
   transform: translateY(-50%);
   width: 0%;
-  height: 10%;
+  height: 60%;
   background: white;
-  transition: 0.3s;
-  z-index: 0;
+  transition: 0.3s ease;
+  border-radius: 3px;
 }
 
 .nav-btn span {
   position: relative;
   z-index: 1;
+  color: black;
 }
 
 .nav-btn:hover::before {
-  width: 50%;
+  width: 70%;
 }
 
 .nav-btn:hover span {
-  color: rgb(100, 100, 100);
+  color: black;
 }

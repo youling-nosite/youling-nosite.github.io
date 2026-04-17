@@ -30,7 +30,7 @@ body::before {
 }
 
 .nav-links a {
-  color: blue;
+  color: rgb(122, 182, 218);
   margin-left: 20px;
   text-decoration: none;
 }

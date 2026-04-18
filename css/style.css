@@ -46,12 +46,14 @@ body::before {
 .nav-btn {
   position: relative;
   display: inline-block;
+
+  height: 60px;
   padding: 10px 25px;
   text-decoration: none;
 
   align-items: center;
   justify-content: center;
-
+  
   text-decoration: none;
   background: #3f3f3f;
   border-radius: 6px;
@@ -71,13 +73,13 @@ body::before {
   content: "";
   position: absolute;
   left: 10%;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   width: 0%;
   height: 30%;
   background: rgb(196, 196, 196, 0.6);
   transition: 0.3s;
-  border-radius: 1;
+  border-radius: 2;
 }
 
 .nav-btn span {

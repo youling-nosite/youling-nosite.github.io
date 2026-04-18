@@ -45,11 +45,9 @@ body::before {
 
 .nav-btn {
   position: relative;
-  display: flex;
+  display: block;
 
-  height: 60px;
-  min-width: 60px;
-
+  height: 36px;
   padding: 10px 25px;
   text-decoration: none;
 

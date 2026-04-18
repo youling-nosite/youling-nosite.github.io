@@ -142,7 +142,7 @@ body::before {
 }
 
 .profile-list li::before {
-  content: "•";
+  content: "";
   position: absolute;
   left: 0;
   top: 20%;
@@ -172,10 +172,10 @@ body::before {
   transition: 0.2s;
 }
 
-.social-btn svg {
+.social-btn img {
   width: 20px;
   height: 20px;
-  fill: currentColor; 
+  object-fit: contain;
 }
 
 .social-btn:hover {

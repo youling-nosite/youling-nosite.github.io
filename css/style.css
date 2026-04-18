@@ -134,6 +134,8 @@ body::before {
 }
 
 .profile-list li {
+  display: flex;
+  align-items: flex-start;
   position: relative;
   padding-left: 15px;
   margin-top: 4px;

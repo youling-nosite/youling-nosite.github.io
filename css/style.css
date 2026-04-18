@@ -145,6 +145,6 @@ body::before {
   content: "•";
   position: absolute;
   left: 0;
-  top: 20%;
+  margin-bottom: 8px;
   color: rgba(255,255,255,0.7);
 }

@@ -165,16 +165,17 @@ body::before {
   padding: 10px 15px;
   text-decoration: none;
 
-  
+  /*background: rgba(255,255,255,0.05);
+  border-radius: 6px;*/
 
   color: rgba(255,255,255,0.8);
   transition: 0.2s;
 }
 
 .social-btn img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+  max-width: 20px;
+  max-height: 20px;
+  /*object-fit: contain;*/
 }
 
 .social-btn:hover {

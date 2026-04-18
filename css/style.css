@@ -127,6 +127,11 @@ body::before {
   background: rgba(40,40,40,0.8);
 }
 
+.about-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 
 .profile-list {
   list-style: none;
@@ -165,6 +170,8 @@ body::before {
   padding: 10px 15px;
   text-decoration: none;
 
+  background: rgba(255,255,255,0.05);
+
   color: rgba(255,255,255,0.8);
   transition: 0.2s;
 }
@@ -179,4 +186,25 @@ body::before {
   background: rgba(255,255,255,0.15);
   transform: translateX(5px);
   color: white;
+}
+
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.3s;
+}
+
+#toast.show {
+  opacity: 1;
 }

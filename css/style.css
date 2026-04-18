@@ -127,11 +127,6 @@ body::before {
   background: rgba(40,40,40,0.8);
 }
 
-.about-wrapper {
-  max-width: 480px;
-  margin: 0 auto;
-}
-
 
 .profile-list {
   list-style: none;

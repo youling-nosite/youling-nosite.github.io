@@ -143,8 +143,6 @@ body::before {
 
 .profile-list li::before {
   content: "•";
-  position: absolute;
-  left: 0;
-  top: 25%;
+  margin-right: 8px;
   color: rgba(255,255,255,0.7);
 }

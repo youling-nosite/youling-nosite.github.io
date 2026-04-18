@@ -45,23 +45,23 @@ body::before {
 
 .nav-btn {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   height: 36px;
   padding: 10px 25px;
-  text-decoration: none;
 
-  align-items: center;
-  justify-content: center;
-  
   text-decoration: none;
-  background: #3f3f3f;
-  border-radius: 6px;
-  overflow: hidden;
   font-weight: bold;
 
-  box-shadow: 0 4px 0 rgb(160, 160, 160, 0.5);
-  transition: 0.1s;
+  background: transparent;
+  box-shadow: none;
+
+  border-radius: 2px;
+  overflow: hidden;
+
+  transition: 0.2s ease;
 }
 
 .nav-btn:active {
@@ -73,24 +73,32 @@ body::before {
   content: "";
   position: absolute;
   left: 10%;
-  bottom: 30%;
-  width: 0%;
-  height: 30%;
-  background: rgb(196, 196, 196, 0.6);
+  bottom: 25%;
+
+  width: 60%;
+  height: 3px;
+
+  background: rgba(255,255,255,0.8);
   transition: 0.3s;
-  border-radius: 2;
+  border-radius: 2px;
 }
 
 .nav-btn span {
   position: relative;
   z-index: 1;
-  color: rgb(196, 196, 196);
+  color: rgba(255,255,255,0.7);
+  transition: 0.2s;
 }
 
-.nav-btn:hover::before {
-  width: 80%;
+.nav-btn:hover {
+  background: rgba(200,200,200,0.3);
+  box-shadow: 0 3px 0 rgba(160,160,160,0.5);
 }
 
 .nav-btn:hover span {
   color: black;
+}
+
+.nav-btn:hover::before {
+  width: 80%;
 }

@@ -45,7 +45,7 @@ body::before {
 
 .nav-btn {
   position: relative;
-  display: inline-block;
+  display: block;
 
   height: 60px;
   padding: 10px 25px;

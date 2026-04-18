@@ -126,3 +126,22 @@ body::before {
   transform: translateY(-5px);
   background: rgba(40,40,40,0.8);
 }
+
+
+.profile-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.profile-list li {
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 6px;
+}
+
+.profile-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.7);
+}

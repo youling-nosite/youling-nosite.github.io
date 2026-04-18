@@ -57,13 +57,13 @@ body::before {
   overflow: hidden;
   font-weight: bold;
 
-  box-shadow: 0 4px 0 #a0a0a0;
+  box-shadow: 0 4px 0 rgb(160, 160, 160, 0.5);
   transition: 0.1s;
 }
 
 .nav-btn:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #a0a0a0;
+  box-shadow: 0 1px 0 rgb(160, 160, 160, 0.5);
 }
 
 .nav-btn {
@@ -91,7 +91,7 @@ body::before {
   transform: translateY(-50%);
   width: 0%;
   height: 30%;
-  background: rgb(196, 196, 196);
+  background: rgb(196, 196, 196, 0.6);
   transition: 0.3s;
   border-radius: 0;
 }

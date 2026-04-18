@@ -110,8 +110,8 @@ body::before {
 }
 
 .about-card {
-  flex: 1 1 250px; 
-  max-width: 300px;
+  flex: 1 1 240px; 
+  max-width: 480px;
 
   background: rgba(30,30,30,0.6);
   padding: 20px;

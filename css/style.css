@@ -101,3 +101,29 @@ body::before {
 .nav-btn:hover::before {
   width: 80%;
 }
+
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.about-card {
+  flex: 1 1 250px; 
+  max-width: 300px;
+
+  background: rgba(30,30,30,0.6);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+
+  color: rgba(255,255,255,0.8);
+  transition: 0.2s;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  background: rgba(40,40,40,0.8);
+}

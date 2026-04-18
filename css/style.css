@@ -143,6 +143,43 @@ body::before {
 
 .profile-list li::before {
   content: "•";
-  margin-right: 8px;
+  position: absolute;
+  left: 0;
+  top: 20%;
   color: rgba(255,255,255,0.7);
+}
+
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 15px;
+  text-decoration: none;
+
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+
+  color: rgba(255,255,255,0.8);
+  transition: 0.2s;
+}
+
+.social-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor; 
+}
+
+.social-btn:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateX(5px);
+  color: white;
 }

@@ -1,10 +1,9 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-/* 背景 + 遮罩 */
 body::before {
   content: "";
   position: fixed;
@@ -85,7 +84,7 @@ body::before {
 .nav-btn span {
   position: relative;
   z-index: 1;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.8);
   transition: 0.2s;
 }
 
@@ -95,7 +94,7 @@ body::before {
 }
 
 .nav-btn:hover span {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.8);
 }
 
 .nav-btn:hover::before {

@@ -3,6 +3,12 @@ const toast = document.getElementById("toast");
 
 const email = "yoiyoi0905@email.com";
 
+fetch("\\components\\navbar.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+    }); 
+
 emailBtn.addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -24,8 +30,3 @@ function showToast(message) {
   }, 2000);
 }
 
-fetch("../components/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-    }); 

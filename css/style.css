@@ -66,9 +66,9 @@ body::before {
   position: absolute;
   left: 15%;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-60%);
   width: 0%;
-  height: 50%;
+  height: 40%;
   background: rgb(196, 196, 196);
   transition: 0.3s ease;
   border-radius: 3px;

@@ -48,6 +48,29 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: 80px;
+  height: 60px;
+  padding: 0 20px;
+  text-decoration: none;
+  background: #3f3f3f;
+  border-radius: 6px;
+  overflow: hidden;
+  font-weight: bold;
+
+  box-shadow: 0 4px 0 #a0a0a0;
+  transition: 0.1s;
+}
+
+.nav-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #a0a0a0;
+}
+
+.nav-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   min-width: 80px;
   height: 60px;

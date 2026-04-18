@@ -68,7 +68,7 @@ body::before {
 
 .nav-btn {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -88,7 +88,6 @@ body::before {
   content: "";
   position: absolute;
   left: 15%;
-  top: 50%;
   transform: translateY(-50%);
   width: 0%;
   height: 30%;
@@ -104,7 +103,7 @@ body::before {
 }
 
 .nav-btn:hover::before {
-  width: 50%;
+  width: 70%;
 }
 
 .nav-btn:hover span {

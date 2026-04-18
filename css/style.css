@@ -89,12 +89,12 @@ body::before {
   position: absolute;
   left: 15%;
   top: 50%;
-  transform: translateY(-60%);
+  transform: translateY(-50%);
   width: 0%;
-  height: 40%;
+  height: 30%;
   background: rgb(196, 196, 196);
-  transition: 0.3s ease;
-  border-radius: 3px;
+  transition: 0.3s;
+  border-radius: 0;
 }
 
 .nav-btn span {
@@ -104,7 +104,7 @@ body::before {
 }
 
 .nav-btn:hover::before {
-  width: 70%;
+  width: 50%;
 }
 
 .nav-btn:hover span {

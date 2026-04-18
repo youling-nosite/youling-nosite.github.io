@@ -136,7 +136,7 @@ body::before {
 .profile-list li {
   position: relative;
   padding-left: 15px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .profile-list li::before {

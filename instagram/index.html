@@ -104,10 +104,10 @@
 
         // --- 2. 初始假資料 ---
         const storiesData = [
-            { id: 1, username: 'user_1', avatar: 'https://i.pravatar.cc/150?img=32' },
-            { id: 2, username: 'user_2', avatar: 'https://i.pravatar.cc/150?img=12' },
-            { id: 3, username: 'user_3', avatar: 'https://i.pravatar.cc/150?img=5' },
-            { id: 4, username: 'user_4', avatar: 'https://i.pravatar.cc/150?img=20' }
+            { id: 1, username: 'happy_everyday', avatar: '/assets/images/u8.png' },
+            { id: 2, username: 'ngeito', avatar: '/assets/images/u9.png' },
+            { id: 3, username: 'wen._sunny', avatar: '/assets/images/u10.png' },
+            { id: 4, username: 'itz_yl_xy_tw', avatar: '/assets/images/u11.png' }
         ];
 
         const initialPosts = [
@@ -134,7 +134,7 @@
                 caption: `10/31\n-\n-\n-\n我想自己發一個啦啦啦`,
                 date: '11月1日',
                 comments: [
-                  { username: 'yms__0201', avatar: '/assets/images/yms__0201.png', text: '第一張傳給我，媽爺拍得真好' }
+                  { username: 'yms__0201', avatar: '/assets/images/yms__0201.jpg', text: '第一張傳給我，媽爺拍得真好' }
                 ]
             },
             {
@@ -148,6 +148,26 @@
                 date: '7月31日',
                 comments: [
                     
+                ]
+            },
+            {
+                id: 4,
+                author: 'news_sunrise',
+                avatar: '/assets/images/news_sunrise.jpg',
+                image: '/assets/images/post3.png',
+                likes: 67,
+                isLiked: false,
+                caption: `於昨日下午政府最終通過同性合法結婚，此立案引起許多社會大眾關注。\n台灣為第一個亞洲國家同意同性合法婚姻，打破過去的傳統印象，反對聲浪持續提高。\n平權與社會價值觀的衝突，有待我們繼續了解。
+                          \nYesterday afternoon, the government finally passed the legal marriage of the same sex,\nwhich attracted the attention of many people in the society.\nTaiwan is the first Asian country to agree to legal same-sex marriage,\nbreaking the traditional impression of the past, and the opposition continues to rise.\nWe need to continue to understand the conflict between equality and social values.`,
+                date: '4月21日',
+                comments: [
+                  { username: 'weiwei.daily', avatar: '/assets/images/u1.jpg', text: '真的不能接受這種事情\nI really can\'t accept this.' },
+                  { username: 'yuting_0903', avatar: '/assets/images/u2.jpg', text: '這樣真的會影響社會價值吧…\nThis is going to affect social values…' },
+                  { username: 'lin._notes', avatar: '/assets/images/u3.jpg', text: '我覺得這樣不太正常\nI don\'t think this is normal.' },
+                  { username: 'asadgfaer', avatar: '/assets/images/u4.jpg', text: '尊重歸尊重，但我不支持\nI respect it, but I don\'t support it.' },
+                  { username: 'yuu._cute', avatar: '/assets/images/u5.jpg', text: '為什麼一定要改變傳統？\nWhy do we have to change traditions?' },
+                  { username: 'yuannn_', avatar: '/assets/images/u6.jpg', text: '小孩看到會不會被影響？\nWhat about kids? Won\'t this affect them?' },
+                  { username: 'chenchen_', avatar: '/assets/images/u7.jpg', text: '社會真的變了…有點可怕\nSociety is really changing… it\'s kind of scary.' }
                 ]
             }
         ];
@@ -191,8 +211,8 @@
                             {/* 其他人的留言 */}
                             {post.comments.length === 0 && (
                                 <div>
-                                  <h2 className="text-center text-gray-500 text-sm py-4">尚無留言</h2>
-                                  <p className="text-center text-gray-500 text-sm py-4">開始對話。</p>
+                                  <h2 className="text-center">還未有任何回應。</h2>
+                                  <p className="text-center">開始對話。</p>
                                 </div>
                             )}
                             {post.comments.map((c, i) => (
@@ -201,7 +221,7 @@
                                     <div className="flex-1">
                                         <span className="font-semibold text-sm mr-2">{c.username}</span>
                                         <span className="text-sm">{c.text}</span>
-                                        <div className="text-[12px] text-gray-500 mt-1">剛剛 回覆</div>
+                                        <div className="text-[12px] text-gray-500 mt-1">剛剛    回覆</div>
                                     </div>
                                     <Heart className="w-4 h-4 text-gray-400 cursor-pointer flex-shrink-0 mt-1" />
                                 </div>
@@ -312,7 +332,7 @@
                     </div>
 
                     <div className="flex items-center px-3 py-2 border-t border-gray-100">
-                        <img src="https://i.pravatar.cc/150?img=11" alt="我的頭像" className="w-7 h-7 rounded-full object-cover mr-3 flex-shrink-0" />
+                        <img src="/assets/images/myself.jpg" alt="我的頭像" className="w-7 h-7 rounded-full object-cover mr-3 flex-shrink-0" />
                         <input
                             type="text"
                             placeholder="新增留言..."
@@ -433,7 +453,7 @@
                             ))}
                             
                             <div className="h-10 text-center text-gray-400 py-4 text-sm font-medium bg-gray-100">
-                                ✔ 你已經看完全部貼文
+                                
                             </div>
                         </main>
 

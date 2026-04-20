@@ -24,10 +24,15 @@
         .select-none { user-select: none; }
 
         /* 留言區滑動動畫 */
-        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -159,64 +164,69 @@
             };
 
             return (
-                <div className="absolute inset-0 bg-white z-[60] flex flex-col h-full animate-slide-up">
-                    {/* 留言區頂部導航 */}
-                    <div className="flex items-center px-4 py-3 border-b border-gray-200 bg-white">
-                        <ArrowLeft className="w-6 h-6 cursor-pointer text-gray-900" onClick={onClose} />
-                        <h2 className="flex-1 text-center font-bold text-[16px]">留言</h2>
-                        <div className="w-6"></div> {/* 排版留白用 */}
-                    </div>
+                <div className="absolute inset-0 z-[60] bg-black/40 animate-fade-in flex flex-col justify-end">
+                    {/* 點擊黑色半透明背景可關閉留言區 */}
+                    <div className="flex-1 w-full" onClick={onClose}></div>
                     
-                    {/* 留言列表 */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-5 bg-white">
-                        {/* 貼文作者自己的內文 */}
-                        <div className="flex space-x-3 pb-4 border-b border-gray-100">
-                            <img src={post.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt="author" />
-                            <div>
-                                <span className="font-semibold text-sm mr-2">{post.author}</span>
-                                <span className="text-sm whitespace-pre-wrap">{post.caption}</span>
-                                <div className="text-[12px] text-gray-500 mt-1">{post.date}</div>
-                            </div>
+                    {/* 底部彈窗主體 */}
+                    <div className="bg-white w-full h-[80%] rounded-t-2xl flex flex-col animate-slide-up shadow-xl overflow-hidden">
+                        {/* 頂部把手與標題 */}
+                        <div className="flex flex-col items-center pt-3 pb-3 border-b border-gray-200 bg-white">
+                            <div className="w-10 h-1.5 bg-gray-300 rounded-full mb-3"></div>
+                            <h2 className="text-center font-bold text-[15px]">留言</h2>
                         </div>
                         
-                        {/* 其他人的留言 */}
-                        {post.comments.length === 0 && (
-                            <div>
-                              <h2 className="text-center text-gray-500 text-sm py-4">尚無留言</h2>
-                              <p className="text-center text-gray-500 text-sm py-4">開始對話。</p>
-                            </div>
-                        )}
-                        {post.comments.map((c, i) => (
-                            <div key={i} className="flex space-x-3">
-                                <img src={c.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt={c.username} />
-                                <div className="flex-1">
-                                    <span className="font-semibold text-sm mr-2">{c.username}</span>
-                                    <span className="text-sm">{c.text}</span>
-                                    <div className="text-[12px] text-gray-500 mt-1">剛剛 回覆</div>
+                        {/* 留言列表 */}
+                        <div className="flex-1 overflow-y-auto p-4 space-y-5 bg-white">
+                            {/* 貼文作者自己的內文 */}
+                            <div className="flex space-x-3 pb-4 border-b border-gray-100">
+                                <img src={post.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt="author" />
+                                <div>
+                                    <span className="font-semibold text-sm mr-2">{post.author}</span>
+                                    <span className="text-sm whitespace-pre-wrap">{post.caption}</span>
+                                    <div className="text-[12px] text-gray-500 mt-1">{post.date}</div>
                                 </div>
-                                <Heart className="w-4 h-4 text-gray-400 cursor-pointer flex-shrink-0 mt-1" />
                             </div>
-                        ))}
-                    </div>
+                            
+                            {/* 其他人的留言 */}
+                            {post.comments.length === 0 && (
+                                <div>
+                                  <h2 className="text-center text-gray-500 text-sm py-4">尚無留言</h2>
+                                  <p className="text-center text-gray-500 text-sm py-4">開始對話。</p>
+                                </div>
+                            )}
+                            {post.comments.map((c, i) => (
+                                <div key={i} className="flex space-x-3">
+                                    <img src={c.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt={c.username} />
+                                    <div className="flex-1">
+                                        <span className="font-semibold text-sm mr-2">{c.username}</span>
+                                        <span className="text-sm">{c.text}</span>
+                                        <div className="text-[12px] text-gray-500 mt-1">剛剛 回覆</div>
+                                    </div>
+                                    <Heart className="w-4 h-4 text-gray-400 cursor-pointer flex-shrink-0 mt-1" />
+                                </div>
+                            ))}
+                        </div>
 
-                    {/* 輸入新留言區塊 */}
-                    <div className="p-3 border-t border-gray-200 flex items-center space-x-3 bg-white pb-6">
-                        <img src="https://i.pravatar.cc/150?img=11" alt="我的頭像" className="w-8 h-8 rounded-full object-cover" />
-                        <input
-                            type="text"
-                            className="flex-1 outline-none text-sm bg-gray-100 rounded-full px-4 py-2"
-                            placeholder="新增留言..."
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                        />
-                        <button
-                            className={`text-sm font-semibold transition-colors ${text.trim() ? 'text-blue-500' : 'text-blue-200'}`}
-                            disabled={!text.trim()}
-                            onClick={handleSubmit}
-                        >
-                            發佈
-                        </button>
+                        {/* 輸入新留言區塊 */}
+                        <div className="p-3 border-t border-gray-200 flex items-center space-x-3 bg-white pb-6">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="我的頭像" className="w-8 h-8 rounded-full object-cover" />
+                            <input
+                                type="text"
+                                className="flex-1 outline-none text-sm bg-gray-100 rounded-full px-4 py-2"
+                                placeholder="新增留言..."
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+                            />
+                            <button
+                                className={`text-sm font-semibold transition-colors ${text.trim() ? 'text-blue-500' : 'text-blue-200'}`}
+                                disabled={!text.trim()}
+                                onClick={handleSubmit}
+                            >
+                                發佈
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
@@ -276,35 +286,26 @@
                     </div>
 
                     <div className="flex items-center justify-between px-3 py-3">
-                        <div className="flex items-center space-x-4">
-                            <button onClick={handleLikeClick} className={`transition-transform ${isLiking ? 'scale-125' : 'scale-100'}`}>
-                                <Heart className={`w-6 h-6 ${post.isLiked ? 'fill-red-500 text-red-500' : 'text-gray-900'}`} />
+                        <div className="flex items-center space-x-5">
+                            <button onClick={handleLikeClick} className="flex items-center space-x-1 outline-none">
+                                <div className={`transition-transform ${isLiking ? 'scale-125' : 'scale-100'}`}>
+                                    <Heart className={`w-6 h-6 ${post.isLiked ? 'fill-red-500 text-red-500' : 'text-gray-900'}`} />
+                                </div>
+                                <span className="text-sm font-semibold text-gray-800">{post.likes.toLocaleString()}</span>
                             </button>
-                            <button onClick={() => onOpenComments(post.id)}>
+                            <button onClick={() => onOpenComments(post.id)} className="flex items-center space-x-1 outline-none">
                                 <MessageCircle className="w-6 h-6 text-gray-900" />
+                                <span className="text-sm font-semibold text-gray-800">{post.comments.length}</span>
                             </button>
                             <button><Send className="w-6 h-6 text-gray-900" /></button>
                         </div>
                         <button><Bookmark className="w-6 h-6 text-gray-900" /></button>
                     </div>
 
-                    <div className="px-3 text-sm font-semibold mb-1">
-                        {post.likes.toLocaleString()} 個讚
-                    </div>
-
-                    <div className="px-3 text-sm mb-1">
+                    <div className="px-3 text-sm mb-1 mt-1">
                         <span className="font-semibold mr-2">{post.author}</span>
                         <span className="whitespace-pre-wrap">{post.caption}</span>
                     </div>
-
-                    {post.comments.length > 0 && (
-                        <div 
-                            className="px-3 mt-1 mb-1 text-sm text-gray-500 cursor-pointer"
-                            onClick={() => onOpenComments(post.id)}
-                        >
-                            查看全部 {post.comments.length} 則留言
-                        </div>
-                    )}
 
                     <div className="px-3 text-[10px] text-gray-500 uppercase mt-2 mb-3 tracking-wide">
                         {post.date}

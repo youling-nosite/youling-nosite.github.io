@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram 模擬網頁</title>
+    <title>Instgram</title>
     
     <!-- 引入 Tailwind CSS (負責排版與樣式) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +22,13 @@
         
         /* 防止雙擊圖片時選取到文字 */
         .select-none { user-select: none; }
+
+        /* 留言區滑動動畫 */
+        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -84,6 +91,11 @@
                 <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
             </svg>
         );
+        const ArrowLeft = ({ className, onClick }) => (
+            <svg className={className} onClick={onClick} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        );
 
         // --- 2. 初始假資料 ---
         const storiesData = [
@@ -96,46 +108,122 @@
         const initialPosts = [
             {
                 id: 1,
-                author: 'chiulin_art',
-                avatar: 'https://i.pravatar.cc/150?img=47',
-                image: 'post0.jpg',
-                likes: 128,
+                author: 'mystake_417',
+                avatar: '/assets/images/mystake_417.png',
+                image: '/assets/images/post0.png',
+                likes: 20,
                 isLiked: false,
                 caption: `好久沒好好畫了~\n貓看著的時候,好像整個人都變得柔軟了\n那表情連貓都看穿了૮꒰˶ฅ́˘ฅ̀˶꒱ა\n\n（今天要畫的時候訊息一直來 ヽ(#\`Д´)ノ`,
                 date: '7月23日',
                 comments: [
-                    { username: 'art_lover99', text: '貓咪的眼神畫得太棒了吧！😍' }
+                    
                 ]
             },
             {
                 id: 2,
-                author: 'qingyu_1031',
-                avatar: 'https://i.pravatar.cc/150?img=33',
-                image: 'post1.jpg',
-                likes: 256,
+                author: '999651love',
+                avatar: '/assets/images/999651love.png',
+                image: '/assets/images/post1.png',
+                likes: 102,
                 isLiked: false,
                 caption: `10/31\n-\n-\n-\n我想自己發一個啦啦啦`,
                 date: '11月1日',
-                comments: []
+                comments: [
+                  { username: 'yms__0201', avatar: '/assets/images/yms__0201.png', text: '第一章傳給我，媽爺拍得真好' }
+                ]
             },
             {
                 id: 3,
-                author: 'chiulin_art',
-                avatar: 'https://i.pravatar.cc/150?img=47',
-                image: 'post2.jpg',
-                likes: 184,
+                author: 'mystake_417',
+                avatar: '/assets/images/mystake_417.png',
+                image: '/assets/images/post2.png',
+                likes: 20,
                 isLiked: false,
                 caption: `想畫點帥帥的地雷系（？）\n結果不小心畫太順(σ°∀°)σ\n黑色好好塗,表情也意外地對味\n避難所就這樣\n多了一個不太好惹的傢伙ت\n\n（gpt說整體有一種「安靜但會咬人」的帥感🤣`,
                 date: '7月31日',
                 comments: [
-                    { username: 'anime_fan', text: '真的有一種很酷的氣質！' },
-                    { username: 'draw_daily', text: '黑色的層次處理得好好' }
+                    
                 ]
             }
         ];
 
+        // --- 2.5 留言區彈出視窗元件 ---
+        const CommentsModal = ({ post, onClose, onComment }) => {
+            const [text, setText] = useState('');
+
+            const handleSubmit = () => {
+                if (text.trim()) {
+                    onComment(post.id, text);
+                    setText('');
+                }
+            };
+
+            return (
+                <div className="absolute inset-0 bg-white z-[60] flex flex-col h-full animate-slide-up">
+                    {/* 留言區頂部導航 */}
+                    <div className="flex items-center px-4 py-3 border-b border-gray-200 bg-white">
+                        <ArrowLeft className="w-6 h-6 cursor-pointer text-gray-900" onClick={onClose} />
+                        <h2 className="flex-1 text-center font-bold text-[16px]">留言</h2>
+                        <div className="w-6"></div> {/* 排版留白用 */}
+                    </div>
+                    
+                    {/* 留言列表 */}
+                    <div className="flex-1 overflow-y-auto p-4 space-y-5 bg-white">
+                        {/* 貼文作者自己的內文 */}
+                        <div className="flex space-x-3 pb-4 border-b border-gray-100">
+                            <img src={post.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt="author" />
+                            <div>
+                                <span className="font-semibold text-sm mr-2">{post.author}</span>
+                                <span className="text-sm whitespace-pre-wrap">{post.caption}</span>
+                                <div className="text-[12px] text-gray-500 mt-1">{post.date}</div>
+                            </div>
+                        </div>
+                        
+                        {/* 其他人的留言 */}
+                        {post.comments.length === 0 && (
+                            <div>
+                              <h2 className="text-center text-gray-500 text-sm py-4">尚無留言</h2>
+                              <p className="text-center text-gray-500 text-sm py-4">開始對話。</p>
+                            </div>
+                        )}
+                        {post.comments.map((c, i) => (
+                            <div key={i} className="flex space-x-3">
+                                <img src={c.avatar} className="w-8 h-8 rounded-full object-cover flex-shrink-0" alt={c.username} />
+                                <div className="flex-1">
+                                    <span className="font-semibold text-sm mr-2">{c.username}</span>
+                                    <span className="text-sm">{c.text}</span>
+                                    <div className="text-[12px] text-gray-500 mt-1">剛剛 回覆</div>
+                                </div>
+                                <Heart className="w-4 h-4 text-gray-400 cursor-pointer flex-shrink-0 mt-1" />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 輸入新留言區塊 */}
+                    <div className="p-3 border-t border-gray-200 flex items-center space-x-3 bg-white pb-6">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="我的頭像" className="w-8 h-8 rounded-full object-cover" />
+                        <input
+                            type="text"
+                            className="flex-1 outline-none text-sm bg-gray-100 rounded-full px-4 py-2"
+                            placeholder="新增留言..."
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+                        />
+                        <button
+                            className={`text-sm font-semibold transition-colors ${text.trim() ? 'text-blue-500' : 'text-blue-200'}`}
+                            disabled={!text.trim()}
+                            onClick={handleSubmit}
+                        >
+                            發佈
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
         // --- 3. 單篇貼文元件 ---
-        const Post = ({ post, onLike, onComment }) => {
+        const Post = ({ post, onLike, onComment, onOpenComments }) => {
             const [commentText, setCommentText] = useState('');
             const [isLiking, setIsLiking] = useState(false);
 
@@ -192,7 +280,9 @@
                             <button onClick={handleLikeClick} className={`transition-transform ${isLiking ? 'scale-125' : 'scale-100'}`}>
                                 <Heart className={`w-6 h-6 ${post.isLiked ? 'fill-red-500 text-red-500' : 'text-gray-900'}`} />
                             </button>
-                            <button><MessageCircle className="w-6 h-6 text-gray-900" /></button>
+                            <button onClick={() => onOpenComments(post.id)}>
+                                <MessageCircle className="w-6 h-6 text-gray-900" />
+                            </button>
                             <button><Send className="w-6 h-6 text-gray-900" /></button>
                         </div>
                         <button><Bookmark className="w-6 h-6 text-gray-900" /></button>
@@ -208,13 +298,11 @@
                     </div>
 
                     {post.comments.length > 0 && (
-                        <div className="px-3 mt-2 mb-1">
-                            {post.comments.map((comment, index) => (
-                                <div key={index} className="text-sm mb-1">
-                                    <span className="font-semibold mr-2">{comment.username}</span>
-                                    <span>{comment.text}</span>
-                                </div>
-                            ))}
+                        <div 
+                            className="px-3 mt-1 mb-1 text-sm text-gray-500 cursor-pointer"
+                            onClick={() => onOpenComments(post.id)}
+                        >
+                            查看全部 {post.comments.length} 則留言
                         </div>
                     )}
 
@@ -247,6 +335,7 @@
         // --- 4. 主應用程式元件 ---
         const App = () => {
             const [posts, setPosts] = useState(initialPosts);
+            const [activeCommentPostId, setActiveCommentPostId] = useState(null);
 
             const handleLike = (postId) => {
                 setPosts(currentPosts => 
@@ -270,7 +359,11 @@
                         if (post.id === postId) {
                             return {
                                 ...post,
-                                comments: [...post.comments, { username: 'my_account', text: text }]
+                                comments: [...post.comments, { 
+                                    username: 'my_account', 
+                                    avatar: 'https://i.pravatar.cc/150?img=11',
+                                    text: text 
+                                }]
                             };
                         }
                         return post;
@@ -278,11 +371,22 @@
                 );
             };
 
+            const activePost = posts.find(p => p.id === activeCommentPostId);
+
             return (
                 <div className="bg-gray-100 min-h-screen flex justify-center font-sans">
-                    <div className="w-full max-w-[414px] bg-white h-full min-h-screen relative shadow-sm flex flex-col pb-12 border-x border-gray-200">
+                    <div className="w-full max-w-[414px] bg-white h-full min-h-screen relative shadow-sm flex flex-col pb-12 border-x border-gray-200 overflow-hidden">
                         
-                        <header className="sticky top-0 z-50 bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center">
+                        {/* 留言區彈出視窗 */}
+                        {activePost && (
+                            <CommentsModal 
+                                post={activePost} 
+                                onClose={() => setActiveCommentPostId(null)} 
+                                onComment={handleComment} 
+                            />
+                        )}
+
+                        <header className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center">
                             <div className="font-serif italic text-2xl font-bold tracking-tight pt-1">
                                 Instagram
                             </div>
@@ -316,7 +420,13 @@
 
                         <main className="flex-1 overflow-y-auto bg-gray-100">
                             {posts.map(post => (
-                                <Post key={post.id} post={post} onLike={handleLike} onComment={handleComment} />
+                                <Post 
+                                    key={post.id} 
+                                    post={post} 
+                                    onLike={handleLike} 
+                                    onComment={handleComment} 
+                                    onOpenComments={(id) => setActiveCommentPostId(id)}
+                                />
                             ))}
                             
                             <div className="h-10 text-center text-gray-400 py-4 text-sm font-medium bg-gray-100">
@@ -324,7 +434,7 @@
                             </div>
                         </main>
 
-                        <nav className="fixed bottom-0 w-full max-w-[414px] bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center z-50">
+                        <nav className="fixed bottom-0 w-full max-w-[414px] bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center z-40">
                             <Home className="w-6 h-6 text-gray-900 cursor-pointer" />
                             <Search className="w-6 h-6 text-gray-900 cursor-pointer" />
                             <PlusSquare className="w-6 h-6 text-gray-900 cursor-pointer" />

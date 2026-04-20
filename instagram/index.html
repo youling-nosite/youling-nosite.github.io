@@ -155,16 +155,16 @@
                 author: 'news_sunrise',
                 avatar: '/assets/images/news_sunrise.jpg',
                 image: '/assets/images/post3.png',
-                likes: 8967, 
+                likes: 8963, // 修改讚數
                 isLiked: false,
-                displayCommentCount: 519, 
+                displayCommentCount: 679, 
                 caption: `於昨日下午政府最終通過同性合法結婚，此立案引起許多社會大眾關注。\n台灣為第一個亞洲國家同意同性合法婚姻，打破過去的傳統印象，反對聲浪持續提高。\n平權與社會價值觀的衝突，有待我們繼續了解。
                           \nYesterday afternoon, the government finally passed the legal marriage of the same sex,\nwhich attracted the attention of many people in the society.\nTaiwan is the first Asian country to agree to legal same-sex marriage,\nbreaking the traditional impression of the past, and the opposition continues to rise.\nWe need to continue to understand the conflict between equality and social values.`,
                 date: '4月21日',
                 comments: [
                   { username: 'weiwei.daily', avatar: '/assets/images/u1.jpg', text: '真的不能接受這種事情 \nI really can\'t accept this.' },
                   { username: 'yuting_0903', avatar: '/assets/images/u2.jpg', text: '這樣真的會影響社會價值吧… \nThis is going to affect social values…' },
-                  { username: 'lin._notes', avatar: '/assets/images/u3.jpg', text: '我覺得這樣不太正常 \nI don\'t think this is normal.' },
+                  { username: 'lin._notes', avatar: '/assets/images/u3.jpg', text: '我覺得這樣不太正常 \nI don \'t think this is normal.' },
                   { username: 'asadgfaer', avatar: '/assets/images/u4.jpg', text: '尊重歸尊重，但我不支持 \nI respect it, but I don\'t support it.' },
                   { username: 'yuu._cute', avatar: '/assets/images/u5.jpg', text: '為什麼一定要改變傳統？ \nWhy do we have to change traditions?' },
                   { username: 'yuannn_', avatar: '/assets/images/u6.jpg', text: '小孩看到會不會被影響？ \nWhat about kids? Won\'t this affect them?' },
@@ -201,7 +201,7 @@
                         <div className="flex-1 overflow-y-auto p-4 space-y-5 bg-white">
                             {/* 貼文作者自己的內文 */}
                             <div className="flex space-x-3 pb-4 border-b border-gray-100">
-                                <img src={post.avatar} className="w-8 h-8 rounded-full object-cover aspect-square flex-shrink-0" alt="author" />
+                                <img src={post.avatar} className="w-8 h-8 min-w-[32px] min-h-[32px] rounded-full object-cover flex-shrink-0" alt="author" />
                                 <div>
                                     <span className="font-semibold text-sm mr-2">{post.author}</span>
                                     <span className="text-sm whitespace-pre-wrap">{post.caption}</span>
@@ -218,7 +218,7 @@
                             )}
                             {post.comments.map((c, i) => (
                                 <div key={i} className="flex space-x-3">
-                                    <img src={c.avatar} className="w-8 h-8 rounded-full object-cover aspect-square flex-shrink-0" alt={c.username} />
+                                    <img src={c.avatar} className="w-8 h-8 min-w-[32px] min-h-[32px] rounded-full object-cover flex-shrink-0" alt={c.username} />
                                     <div className="flex-1">
                                         <span className="font-semibold text-sm mr-2">{c.username}</span>
                                         <span className="text-sm">{c.text}</span>
@@ -231,7 +231,7 @@
 
                         {/* 輸入新留言區塊 */}
                         <div className="p-3 border-t border-gray-200 flex items-center space-x-3 bg-white pb-6">
-                            <img src="/assets/images/myself.jpg" alt="我的頭像" className="w-8 h-8 rounded-full object-cover aspect-square flex-shrink-0" />
+                            <img src="/assets/images/myself.jpg" alt="我的頭像" className="w-8 h-8 min-w-[32px] min-h-[32px] rounded-full object-cover flex-shrink-0" />
                             <input
                                 type="text"
                                 className="flex-1 outline-none text-sm bg-gray-100 rounded-full px-4 py-2"
@@ -288,8 +288,8 @@
                     <div className="flex items-center justify-between px-3 py-2">
                         <div className="flex items-center">
                             <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-fuchsia-600 p-[2px] rounded-full mr-2 flex-shrink-0">
-                                <div className="bg-white p-[2px] rounded-full">
-                                    <img src={post.avatar} alt="頭像" className="w-8 h-8 rounded-full object-cover aspect-square flex-shrink-0" />
+                                <div className="bg-white p-[2px] rounded-full flex-shrink-0">
+                                    <img src={post.avatar} alt="頭像" className="w-8 h-8 min-w-[32px] min-h-[32px] rounded-full object-cover flex-shrink-0" />
                                 </div>
                             </div>
                             <span className="font-semibold text-sm">{post.author}</span>
@@ -335,7 +335,7 @@
                     </div>
 
                     <div className="flex items-center px-3 py-2 border-t border-gray-100">
-                        <img src="/assets/images/myself.jpg" alt="我的頭像" className="w-7 h-7 rounded-full object-cover aspect-square mr-3 flex-shrink-0" />
+                        <img src="/assets/images/myself.jpg" alt="我的頭像" className="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full object-cover mr-3 flex-shrink-0" />
                         <input
                             type="text"
                             placeholder="新增留言..."
@@ -425,9 +425,9 @@
                         {/* main 是唯一的滾動區域 */}
                         <main className="flex-1 overflow-y-auto bg-gray-100">
                             <div className="border-b border-gray-200 py-3 px-2 flex space-x-4 overflow-x-auto scrollbar-hide bg-white shrink-0">
-                                <div className="flex flex-col items-center space-y-1 ml-2">
-                                    <div className="relative cursor-pointer">
-                                        <img src="/assets/images/myself.jpg" alt="我的限時動態" className="w-16 h-16 rounded-full object-cover aspect-square flex-shrink-0 border-2 border-white shadow-sm" />
+                                <div className="flex flex-col items-center space-y-1 ml-2 flex-shrink-0">
+                                    <div className="relative cursor-pointer flex-shrink-0">
+                                        <img src="/assets/images/myself.jpg" alt="我的限時動態" className="w-16 h-16 min-w-[64px] min-h-[64px] rounded-full object-cover flex-shrink-0 border-2 border-white shadow-sm" />
                                         <div className="absolute bottom-0 right-0 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center w-5 h-5">
                                             <Plus className="w-3 h-3 text-white stroke-[3]" />
                                         </div>
@@ -435,10 +435,10 @@
                                     <span className="text-xs text-gray-600">你的限時動態</span>
                                 </div>
                                 {storiesData.map((story) => (
-                                    <div key={story.id} className="flex flex-col items-center space-y-1 cursor-pointer">
+                                    <div key={story.id} className="flex flex-col items-center space-y-1 cursor-pointer flex-shrink-0">
                                         <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-fuchsia-600 p-[2px] rounded-full flex-shrink-0">
-                                            <div className="bg-white p-[2px] rounded-full">
-                                                <img src={story.avatar} alt={story.username} className="w-[58px] h-[58px] rounded-full object-cover aspect-square flex-shrink-0" />
+                                            <div className="bg-white p-[2px] rounded-full flex-shrink-0">
+                                                <img src={story.avatar} alt={story.username} className="w-[58px] h-[58px] min-w-[58px] min-h-[58px] rounded-full object-cover flex-shrink-0" />
                                             </div>
                                         </div>
                                         <span className="text-xs text-gray-600">{story.username}</span>
@@ -466,7 +466,7 @@
                             <Search className="w-6 h-6 text-gray-900 cursor-pointer" />
                             <PlusSquare className="w-6 h-6 text-gray-900 cursor-pointer" />
                             <Video className="w-6 h-6 text-gray-900 cursor-pointer" />
-                            <img src="/assets/images/myself.jpg" alt="個人檔案" className="w-7 h-7 rounded-full object-cover aspect-square flex-shrink-0 border border-gray-300 p-[1px] cursor-pointer" />
+                            <img src="/assets/images/myself.jpg" alt="個人檔案" className="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full object-cover flex-shrink-0 border border-gray-300 p-[1px] cursor-pointer" />
                         </nav>
                         
                     </div>

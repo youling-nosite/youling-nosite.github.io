@@ -114,7 +114,7 @@
             {
                 id: 1,
                 author: 'mystake_417',
-                avatar: '/assets/images/mystake_417.jpg',
+                avatar: '/assets/images/mystake_417.png',
                 image: '/assets/images/post0.png',
                 likes: 20,
                 isLiked: false,
@@ -126,21 +126,21 @@
             },
             {
                 id: 2,
-                author: '999651love',
-                avatar: '/assets/images/999651love.jpg',
+                author: '999561love',
+                avatar: '/assets/images/999561love.png',
                 image: '/assets/images/post1.png',
                 likes: 102,
                 isLiked: false,
                 caption: `10/31\n-\n-\n-\n我想自己發一個啦啦啦`,
                 date: '11月1日',
                 comments: [
-                  { username: 'yms__0201', avatar: '/assets/images/yms__0201.jpg', text: '第一張傳給我，媽爺拍得真好' }
+                  { username: 'yms__0201', avatar: '/assets/images/yms__0201.png', text: '第一章傳給我，媽爺拍得真好' }
                 ]
             },
             {
                 id: 3,
                 author: 'mystake_417',
-                avatar: '/assets/images/mystake_417.jpg',
+                avatar: '/assets/images/mystake_417.png',
                 image: '/assets/images/post2.png',
                 likes: 20,
                 isLiked: false,
@@ -168,8 +168,8 @@
                     {/* 點擊黑色半透明背景可關閉留言區 */}
                     <div className="flex-1 w-full" onClick={onClose}></div>
                     
-                    {/* 底部彈窗主體 */}
-                    <div className="bg-white w-full h-[80%] rounded-t-2xl flex flex-col animate-slide-up shadow-xl overflow-hidden">
+                    {/* 底部彈窗主體 (高度設定為 3/4) */}
+                    <div className="bg-white w-full h-3/4 rounded-t-2xl flex flex-col animate-slide-up shadow-xl overflow-hidden">
                         {/* 頂部把手與標題 */}
                         <div className="flex flex-col items-center pt-3 pb-3 border-b border-gray-200 bg-white">
                             <div className="w-10 h-1.5 bg-gray-300 rounded-full mb-3"></div>

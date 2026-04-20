@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>關於悠靈</title>
+  <style>
+    /* --- 全局基礎設定 --- */
+    body {
+      background-color: #121212; /* 補上深色背景讓你比較好確認文字 */
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .about {
+      max-width: 1000px;
+      margin: 0 auto; /* 讓整個區塊在畫面中置中 */
+    }
+
+    /* --- 單獨的 Card 置中 --- */
+    .card {
+      background: rgba(30,30,30,0.6);
+      padding: 20px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      margin: 0 auto 30px auto; /* 關鍵：左右 auto 讓自己置中 */
+      max-width: 480px;
+    }
+
+    /* --- 下方三張卡片的容器 --- */
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* 關鍵：讓裡面的卡片水平置中排列 */
+      gap: 20px;
+      padding: 0;
+    }
+      
+    .about-card {
+      /* 關鍵修正：原本的 flex: 1 1 240px 會讓卡片無限拉伸，導致看不出置中效果 */
+      /* 改為 flex: 0 1 300px，讓它不自動拉伸，並保持基礎寬度 */
+      flex: 0 1 300px; 
+      
+      background: rgba(30,30,30,0.6);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      color: rgba(255,255,255,0.8);
+      transition: 0.2s;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      background: rgba(40,40,40,0.8);
+    }
+
+    /* --- 列表與按鈕 --- */
+    .profile-list { list-style: none; padding-left: 0; }
+    .profile-list li { margin-bottom: 8px; }
+    .social-links { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .social-btn {
+      display: flex; align-items: center; gap: 10px; padding: 10px 15px; 
+      text-decoration: none; background: rgba(255,255,255,0.05); 
+      color: rgba(255,255,255,0.8); transition: 0.2s; border-radius: 6px;
+    }
+    .social-btn:hover {
+      background: rgba(255,255,255,0.15); transform: translateX(5px); color: white;
+    }
+
+    /* --- 提示訊息 (Toast) 樣式 --- */
+    #toast-container {
+      position: fixed;
+      top: 20px;   /* 從右上角出來 */
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px; 
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      
+      /* 初始狀態在畫面外 */
+      transform: translateX(120%);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .toast-msg.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="about">
+    <h1 style="text-align:center; color:white;">關於我</h1>
+
+    <div class="card">
+      <p>這人很神祕，什麼也沒留下<br>反正就是 TODO</p>
+    </div>
+
+    <div class="about-container">
+      <div class="about-card">
+        <h2>個人檔案</h2>
+        <ul class="profile-list">
+          <li>暱稱：悠哉的悠靈</li>
+          <li>年齡：16 歲</li>
+          <li>職業：學生</li>
+          <li>國籍：台灣</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h2>自我介紹</h2>
+        <p>目前施工中...</p>
+      </div>
+
+      <div class="about-card">
+        <h2>聯絡方式</h2>
+        <div class="social-links">
+          <a href="#" class="social-btn" id="copy-email">
+            <span>📧 點我複製 Email</span>
+          </a>
+          <a href="https://github.com/ItzYouLingTW" target="_blank" class="social-btn">
+            <span>🐙 GitHub</span>
+          </a>
+          <a href="https://discord.gg/WJuCEwpNQv" target="_blank" class="social-btn">
+            <span>🎮 Discord</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    const emailBtn = document.getElementById("copy-email");
+    const toastContainer = document.getElementById("toast-container"); 
+    const email = "yoiyoi0905@email.com";
+
+    emailBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      try {
+        // 安全機制檢查：避免直接開啟 HTML 檔案 (file://) 時找不到剪貼簿 API
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(email);
+          showToast("✅ 已成功複製到剪貼簿");
+        } else {
+          showToast("⚠️ 目前環境無法使用複製功能");
+        }
+      } catch (err) {
+        showToast("❌ 複製失敗 😢");
+      }
+    });
+
+    function showToast(message) {
+      // 1. 建立新元素
+      const toast = document.createElement("div");
+      toast.classList.add("toast-msg");
+      toast.textContent = message;
+
+      // 2. 放入容器
+      toastContainer.appendChild(toast);
+
+      // 3. 關鍵修正：使用 setTimeout 確保瀏覽器已渲染元素，再加入動畫 class
+      setTimeout(() => {
+        toast.classList.add("show");
+      }, 10);
+
+      // 4. 定時移除
+      setTimeout(() => {
+        toast.classList.remove("show"); 
+        setTimeout(() => {
+          toast.remove();
+        }, 400); // 確保退場動畫播完才刪除 DOM
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+[
+  {
+    "username": "youling",
+    "avatar": "/assets/images/avatar.png",
+    "image": "/assets/images/test1.jpg",
+    "text": "這是一篇測試貼文 ✨",
+    "comments": [
+      { "user": "userA", "text": "好酷🔥" },
+      { "user": "userB", "text": "這 UI 很讚" }
+    ]
+  },
+  {
+    "username": "youling",
+    "avatar": "/assets/images/avatar.png",
+    "image": "",
+    "text": "Minecraft mod 開發中",
+    "comments": [
+      { "user": "userC", "text": "期待完成！" }
+    ]
+  }
+]

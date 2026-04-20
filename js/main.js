@@ -1,5 +1,5 @@
 const emailBtn = document.getElementById("copy-email");
-const toast = document.getElementById("toast");
+const toastContainer = document.getElementById("toast-container"); 
 
 const email = "yoiyoi0905@email.com";
 
@@ -14,7 +14,6 @@ emailBtn.addEventListener("click", async (e) => {
 
   try {
     await navigator.clipboard.writeText(email);
-
     showToast("已成功複製到剪貼簿");
   } catch (err) {
     showToast("複製失敗 😢");
@@ -22,11 +21,23 @@ emailBtn.addEventListener("click", async (e) => {
 });
 
 function showToast(message) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast-msg");
   toast.textContent = message;
-  toast.classList.add("show");
+
+  toastContainer.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.classList.add("show");
+    });
+  });
 
   setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2000);
+    toast.classList.remove("show"); 
+    
+    setTimeout(() => {
+      toast.remove();
+    }, 400);
+  }, 3000);
 }
-

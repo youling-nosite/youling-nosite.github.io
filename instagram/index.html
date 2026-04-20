@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>Instagram</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram 模擬網頁</title>
+    
+    <!-- 引入 Tailwind CSS (負責排版與樣式) -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    
+    <!-- 引入 React 核心庫 -->
+    <script src="[https://unpkg.com/react@18/umd/react.production.min.js](https://unpkg.com/react@18/umd/react.production.min.js)" crossorigin></script>
+    <script src="[https://unpkg.com/react-dom@18/umd/react-dom.production.min.js](https://unpkg.com/react-dom@18/umd/react-dom.production.min.js)" crossorigin></script>
+    
+    <!-- 引入 Babel 以在瀏覽器中即時編譯 JSX -->
+    <script src="[https://unpkg.com/@babel/standalone/babel.min.js](https://unpkg.com/@babel/standalone/babel.min.js)"></script>
+
+    <style>
+        /* 隱藏限時動態區塊的滾動條 */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 防止雙擊圖片時選取到文字 */
+        .select-none { user-select: none; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-<div class="ig-wrapper">
+    <!-- React 應用的掛載點 -->
+    <div id="root"></div>
 
-  <div class="phone">
+    <!-- 引入外部的 React JS 檔案，務必加上 type="text/babel" -->
+    <script type="text/babel" src="instagram.js"></script>
 
-    <div class="ig-header">youling</div>
-
-    <div class="ig-feed" id="ig-feed"></div>
-
-  </div>
-
-</div>
-
-<!-- 留言視窗 -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span id="close">×</span>
-    <div id="modal-comments"></div>
-  </div>
-</div>
-
-<script src="/js/instagram.js"></script>
 </body>
 </html>

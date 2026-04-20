@@ -101,6 +101,56 @@ body::before {
   width: 80%;
 }
 
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hamburger:hover {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none; 
+    flex-direction: column; 
+    position: absolute;
+    top: 66px; 
+    left: 0;
+    width: 100%;
+    
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-btn {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nav-btn:hover {
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
 
 .about-container {
   display: flex;

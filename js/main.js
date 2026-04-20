@@ -7,6 +7,15 @@ fetch("\\components\\navbar.html")
     .then(res => res.text())
     .then(data => {
         document.getElementById("navbar").innerHTML = data;
+        
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("nav-links");
+        
+        if (hamburger && navLinks) {
+            hamburger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+        }
     }); 
 
 emailBtn.addEventListener("click", async (e) => {

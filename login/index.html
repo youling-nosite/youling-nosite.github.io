@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 - 悠靈の小站</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="about-container" style="margin-top: 80px;">
+        <div class="card" style="width: 320px; max-width: 90%;">
+            <h3 style="text-align: center; margin-top: 0;">帳號登入</h3>
+            
+            <input type="email" id="email" placeholder="電子信箱" style="width: 100%; margin-bottom: 15px; padding: 10px; box-sizing: border-box; border-radius: 4px; border: none;">
+            
+            <input type="password" id="password" placeholder="密碼" style="width: 100%; margin-bottom: 20px; padding: 10px; box-sizing: border-box; border-radius: 4px; border: none;">
+            
+            <div style="display: flex; gap: 10px;">
+                <button id="do-login" class="nav-btn" style="background: rgba(0, 128, 0, 0.5); flex: 1; justify-content: center;">登入</button>
+                <button id="do-signup" class="nav-btn" style="background: rgba(128, 128, 128, 0.3); flex: 1; justify-content: center;">註冊</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="/main.js"></script>
+</body>
+</html>

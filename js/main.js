@@ -66,17 +66,22 @@ fetch("/components/navbar.html")
             };
         }
 
-        // --- E. 登入功能 ---
+        // --- E. 登入功能 (修改為登入成功後跳轉) ---
         const btnLogin = document.getElementById('do-login');
         if (btnLogin) {
             btnLogin.onclick = async () => {
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
                 const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-                if (error) alert("登入失敗：" + error.message);
-                else {
-                    if(loginModal) loginModal.style.display = 'none';
-                    showToast("歡迎回來！");
+                
+                if (error) {
+                    alert("登入失敗：" + error.message);
+                } else {
+                    showToast("登入成功！正在跳轉...");
+                    // 登入成功後，延遲 1 秒鐘跳轉回首頁
+                    setTimeout(() => {
+                        window.location.href = "/"; 
+                    }, 1000);
                 }
             };
         }

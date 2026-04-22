@@ -163,13 +163,8 @@ function displayScores(scores) {
     resultContainer.innerHTML = html;
 }
 
-const queryBtn = document.getElementById("query-btn");
-if (queryBtn) {
-    queryBtn.addEventListener("click", handleQueryGrade);
-}
-
 function displayAdminScores(scores) {
-    const resultContainer = document.getElementById("admin-results");
+    const resultContainer = document.getElementById("score-results");
     if (!resultContainer) return;
 
     let html = `
@@ -200,4 +195,9 @@ function displayAdminScores(scores) {
     `;
     
     resultContainer.innerHTML = html;
+}
+
+const queryBtn = document.getElementById("query-btn");
+if (queryBtn) {
+    queryBtn.addEventListener("click", handleQueryGrade);
 }

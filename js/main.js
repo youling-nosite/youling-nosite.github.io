@@ -65,6 +65,8 @@ async function handleQueryGrade(e) {
     e.preventDefault(); 
 
     const subject = document.getElementById("subject").value;
+    const semester = document.getElementById("semester") ? document.getElementById("semester").value : "all";
+
     const inputAccount = document.getElementById("student-id").value.trim(); 
     const password = document.getElementById("password").value.trim();
 
@@ -99,12 +101,17 @@ async function handleQueryGrade(e) {
             query = query.eq('subject', subject);
         }
 
+        if (semester !== "all") {
+            query = query.eq('semester', semester);
+        }
+
         if (userRole === 'teacher') {
             showToast("老師您好！載入全班成績中...");
             query = query.order('student_id', { ascending: true }).order('semester', { ascending: true });
             
         } else if (userRole === 'student') {
             query = query.eq('student_id', inputAccount); 
+            query = query.order('semester', { ascending: true });
         }
 
         const { data: scoreData, error: scoreError } = await query;

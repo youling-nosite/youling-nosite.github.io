@@ -76,48 +76,10 @@ async function handleQueryGrade(e) {
     showToast("驗證身分中，請稍候...");
 
     try {
-        const { data: teacherData, error: teacherError } = await supabaseClient
-            .from('teachers')
-            .select('username') 
-            .eq('username', inputAccount)
-            .eq('password', password);
-
-        if (teacherError) throw teacherError;
-
-        if (teacherData && teacherData.length > 0) {
-            showToast("老師您好！載入全班成績中... 📊");
-            
-            let query = supabaseClient
-                .from('scores')
-                .select('student_id, semester, subject, range, score')
-                .order('student_id', { ascending: true })
-                .order('semester', { ascending: true });
-            
-            if (subject !== "all") {
-                query = query.eq('subject', subject);
-            }
-
-            const { data: allScores, error: scoreError } = await query;
-            if (scoreError) throw scoreError;
-
-            if (allScores && allScores.length > 0) {
-                showToast("全班成績查詢成功！");
-                displayAdminScores(allScores);
-            } else {
-                showToast(subject === "all" ? "目前資料庫無成績" : `目前沒有【${subject}】的成績`);
-                document.getElementById("score-results").innerHTML = 
-                    `<p style="text-align: center; color: rgba(255,255,255,0.7);">
-                        ${subject === "all" ? "目前尚無成績紀錄。" : `目前尚無【${subject}】的成績紀錄。`}
-                    </p>`;
-            }
-            
-            return; 
-        }
-
         const { data: userData, error: userError } = await supabaseClient
-            .from('students')
-            .select('student_id') 
-            .eq('student_id', inputAccount)
+            .from('users')
+            .select('account, role') 
+            .eq('account', inputAccount)
             .eq('password', password);
 
         if (userError) throw userError;
@@ -129,23 +91,34 @@ async function handleQueryGrade(e) {
             return; 
         }
 
-        let query = supabaseClient
-            .from('scores')
-            .select('semester, subject, range, score')
-            .eq('student_id', inputAccount);
+        const userRole = userData[0].role; 
+        
+        let query = supabaseClient.from('scores').select('student_id, semester, subject, range, score');
 
         if (subject !== "all") {
             query = query.eq('subject', subject);
         }
 
-        const { data: scoreData, error: studentScoreError } = await query;
-        if (studentScoreError) throw studentScoreError;
+        if (userRole === 'teacher') {
+            showToast("老師您好！載入全班成績中...");
+            query = query.order('student_id', { ascending: true }).order('semester', { ascending: true });
+            
+        } else if (userRole === 'student') {
+            query = query.eq('student_id', inputAccount); 
+        }
+
+        const { data: scoreData, error: scoreError } = await query;
+        if (scoreError) throw scoreError;
 
         if (scoreData && scoreData.length > 0) {
             showToast("查詢成功！");
-            displayScores(scoreData);
+            if (userRole === 'teacher') {
+                displayAdminScores(scoreData);
+            } else {
+                displayScores(scoreData);
+            }
         } else {
-            showToast(subject === "all" ? "目前還沒有你的成績紀錄" : `目前沒有【${subject}】的成績紀錄`);
+            showToast(subject === "all" ? "目前資料庫無成績" : `目前沒有【${subject}】的成績`);
             document.getElementById("score-results").innerHTML = 
                 `<p style="text-align: center; color: rgba(255,255,255,0.7);">
                     ${subject === "all" ? "目前尚無成績紀錄。" : `目前尚無【${subject}】的成績紀錄。`}

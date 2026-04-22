@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成績查詢 - 悠靈の小站</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <div id="toast-container"></div>
+
+  <h1 style="text-align:center; margin-top: 30px;">成績查詢系統</h1>
+
+  <div class="card query-wrapper">
+    <h2 style="margin-top: 0; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px;">學生登入</h2>
+    <div class="query-form">
+      <select id="subject" class="styled-select">
+        <option value="all">全部科目</option>
+        <option value="國文">國文</option>
+        <option value="英文">英文</option>
+        <option value="數學">數學</option>
+        <option value="自然">自然</option>
+        <option value="社會">社會</option>
+      </select>
+  
+      <input type="text" id="student-id" placeholder="請輸入學號 (例: 1120001)">
+      <input type="password" id="password" placeholder="請輸入查詢密碼">
+  
+      <button id="query-btn">查詢成績</button>
+    </div>
+  </div>
+
+  <div class="card result-wrapper" style="display: block;">
+    <h3 style="margin-top: 0; color: rgba(255,255,255,0.9);">查詢結果：</h3>
+    <div id="score-results">
+      <p style="text-align: center; color: rgba(255,255,255,0.5);">請在上方輸入資料進行查詢</p>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

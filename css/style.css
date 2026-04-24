@@ -374,3 +374,7 @@ body::before {
   color: white;
   padding: 10px;
 }
+
+.hidden {
+  display: none !important;
+}

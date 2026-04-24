@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系統登入</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <div class="query-wrapper">
+        
+        <div id="login-section" class="card">
+            <h2 style="text-align: center; color: rgba(255,255,255,0.9); margin-top: 0; margin-bottom: 20px;">
+                系統登入
+            </h2>
+            <form id="login-form" class="query-form">
+                <input type="email" id="email" placeholder="請輸入電子信箱 (Email)" required>
+                <input type="password" id="password" placeholder="請輸入密碼" required>
+                <button type="button" id="login-btn">安全登入</button>
+            </form>
+        </div>
+
+        <div id="dashboard-section" class="card hidden">
+            <h2 style="text-align: center; color: rgba(255,255,255,0.9); margin-top: 0;">歡迎登入！</h2>
+            <p id="user-greeting" style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 20px;"></p>
+            
+            <p style="text-align: center; color: #4dabf7; margin-bottom: 25px;">
+                (成績查詢功能尚未開放)
+            </p>
+            
+            <div class="query-form">
+                <button type="button" id="logout-btn" style="background: rgba(255, 107, 107, 0.15); border-color: rgba(255, 107, 107, 0.4); color: #ff8787;">
+                    登出系統
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>

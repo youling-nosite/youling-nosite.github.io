@@ -435,6 +435,23 @@ body::before {
   position: relative;
 }
 
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    
+    display: none;
+    
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    display: flex; 
+}
+
 .auth-form-content {
   flex: 1;
   display: flex;

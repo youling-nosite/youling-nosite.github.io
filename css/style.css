@@ -469,7 +469,7 @@ body::before {
 .close-modal {
   position: absolute;
   top: 15px;
-  right: 20px;
+  left: 20px;
   font-size: 24px;
   background: none;
   border: none;

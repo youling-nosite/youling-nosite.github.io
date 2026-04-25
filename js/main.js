@@ -69,7 +69,7 @@ function initAuthEntry() {
                     userAvatarEl.src = user.user_metadata.avatar_url;
                     userAvatarEl.style.display = 'block';
                 } else {
-                    userAvatarEl.style.display = 'none'; // 顯示 CSS 預設背景色
+                    userAvatarEl.style.display = 'none';
                 }
             }
         } else {

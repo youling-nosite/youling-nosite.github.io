@@ -44,11 +44,10 @@ function initAuthEntry() {
     const authModal = document.getElementById('auth-modal');
     if (!authEntry || !authModal) return;
 
-    // 點擊頭像區塊：已登入去用戶頁，未登入開彈窗
     authEntry.onclick = async () => {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
-            window.location.href = '/user/index.html'; 
+            window.location.href = '/user/  '; 
         } else {
             authModal.classList.add('active'); 
         }

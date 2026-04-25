@@ -423,40 +423,44 @@ body::before {
 }
 
 
-/* 彈窗主體（卡片本人） */
+/* 確保彈窗主體的大小 */
 .modal-content {
-  width: 95%;
+  width: 90%;
   max-width: 500px; 
-  min-height: 450px; 
-  padding: 40px;  
+  min-height: 520px;
+  padding: 40px; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   position: relative;
-  background: #2a2a2a; 
-  border-radius: 16px; 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  animation: modalIn 0.3s ease-out;
-  
+}
+
+.auth-form-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.query-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; 
+.query-form input, 
+.query-form button {
+  height: 48px;
+  margin-bottom: 5px;
+  border-radius: 8px;
 }
 
-.query-form input {
-  padding: 12px 15px; 
-  font-size: 16px;
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  opacity: 0.7;
 }
 
-/* 彈窗出現動畫 */
-@keyframes modalIn {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-overlay.active { display: flex; }
 
 /* 標籤切換 */
 .auth-tabs {

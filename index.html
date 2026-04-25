@@ -12,24 +12,25 @@
     
     <div id="navbar"></div>
     
-    <h1 style="text-align:center;">首頁</h1>
-    
-    <div class="card">
-      <h2>關於 悠靈の小站</h2>
-      <p>悠靈の小站是一個個人化的平台，對，就是如此 </p>
-    </div>
+    <main>
+      <h1 style="text-align:center; margin-top: 30px;">首頁</h1>
+      
+      <div class="card" style="max-width: 800px; margin: 20px auto;">
+        <h2>關於 悠靈の小站</h2>
+        <p>悠靈の小站是一個個人化的平台，對，就是如此</p>
+      </div>
+    </main>
 
-    <footer style="text-align: center; padding: 20px; color: rgba(255,255,255,0.5); font-size: 14px;">
+    <footer style="text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.5); font-size: 14px;">
       <p>&copy; 2024 悠靈の小站</p>
-      <a href="https://youling-nosite.github.io/privacy/" style="color: rgba(255,255,255,0.7); text-decoration: underline;">隱私權政策</a>
+      <a href="https://youling-nosite.github.io/privacy/" style="color: rgba(255,255,255,0.7); text-decoration: underline;">隱私權政策 (Privacy Policy)</a>
     </footer>
     
     <script src="/js/main.js"></script>
 
-
     <div id="auth-modal" class="modal-overlay">
       <div class="modal-content card">
-        <button class="close-modal" id="close-modal">x</button>
+        <button class="close-modal" id="close-modal" aria-label="關閉">x</button>
     
         <div class="auth-tabs">
           <button class="auth-tab active" data-tab="login">登入</button>
@@ -43,8 +44,8 @@
             <button id="login-submit-btn">進入小站</button>
             <div class="divider"><span>或</span></div>
             <button id="google-login-btn" class="social-btn">
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
-              Google 快速登入
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google icon">
+              使用 Google 帳號快速登入
             </button>
           </div>
         </div>

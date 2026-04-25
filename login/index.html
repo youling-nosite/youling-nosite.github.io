@@ -1,49 +1,32 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>系統登入</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <div id="navbar"></div>
-
-    <div class="query-wrapper">
-        
-        <div id="login-section" class="card">
-            <h2 style="text-align: center; color: rgba(255,255,255,0.9); margin-top: 0; margin-bottom: 20px;">
-                系統登入
-            </h2>
-            <form id="login-form" class="query-form">
-                <input type="email" id="email" placeholder="請輸入電子信箱 (Email)" required>
-                <input type="password" id="password" placeholder="請輸入密碼" required>
-                <button type="button" id="login-btn">安全登入</button>
-            </form>
-        </div>
-
-        <div id="dashboard-section" class="card hidden">
-            <h2 style="text-align: center; color: rgba(255,255,255,0.9); margin-top: 0;">歡迎登入！</h2>
-            <p id="user-greeting" style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 20px;"></p>
-            
-            <p style="text-align: center; color: #4dabf7; margin-bottom: 25px;">
-                (成績查詢功能尚未開放)
-            </p>
-            
-            <div class="query-form">
-                <button type="button" id="logout-btn" style="background: rgba(255, 107, 107, 0.15); border-color: rgba(255, 107, 107, 0.4); color: #ff8787;">
-                    登出系統
-                </button>
-            </div>
-        </div>
-
+<div id="auth-modal" class="modal-overlay">
+  <div class="modal-content card">
+    <button class="close-modal" id="close-modal">x</button>
+    
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">登入</button>
+      <button class="auth-tab" data-tab="register">註冊</button>
     </div>
 
-    <div id="toast-container"></div>
+    <div id="login-form-container" class="auth-form-content">
+      <div class="query-form">
+        <input type="email" id="login-email" placeholder="電子郵件">
+        <input type="password" id="login-password" placeholder="密碼">
+        <button id="login-submit-btn">進入小站</button>
+        <div class="divider"><span>或</span></div>
+        <button id="google-login-btn" class="social-btn">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+          Google 快速登入
+        </button>
+      </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="main.js"></script>
-
-</body>
-</html>
+    <div id="register-form-container" class="auth-form-content" style="display: none;">
+      <div class="query-form">
+        <input type="text" id="reg-name" placeholder="使用者暱稱">
+        <input type="email" id="reg-email" placeholder="電子郵件">
+        <input type="password" id="reg-password" placeholder="設定密碼">
+        <button id="register-submit-btn">建立帳號</button>
+      </div>
+    </div>
+  </div>
+</div>

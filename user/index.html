@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人設定 - 悠靈の小站</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <main class="container">
+        <h1 style="text-align:center; margin: 40px 0;">個人中心</h1>
+
+        <div class="card user-panel" style="max-width: 600px; margin: 0 auto;">
+            <div class="user-header">
+                <div class="large-avatar" id="big-avatar">
+                    </div>
+                <h2 id="display-name">載入中...</h2>
+                <p id="display-email" style="opacity: 0.6;"></p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+
+            <div class="user-details">
+                <div class="info-group">
+                    <label>使用者唯一 ID</label>
+                    <div class="info-value" id="display-id">---</div>
+                </div>
+                <div class="info-group">
+                    <label>帳號建立時間</label>
+                    <div class="info-value" id="display-created">---</div>
+                </div>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 30px; display: flex; gap: 10px;">
+                <button id="logout-btn" class="nav-btn" style="background: rgba(255, 50, 50, 0.2); flex: 1;">
+                    <span>登出帳號</span>
+                </button>
+                <button onclick="location.href='/'" class="nav-btn" style="flex: 1;">
+                    <span>回到首頁</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+    <script src="/js/main.js"></script>
+</body>
+</html>

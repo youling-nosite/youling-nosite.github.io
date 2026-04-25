@@ -109,7 +109,7 @@ function initAuthTabs() {
     }
 }
 
-// --- 4. 登入/註冊/Google 動作 ---
+// --- 4-1. 登入/註冊/Google 動作 ---
 function initAuthActions() {
     const authModal = document.getElementById('auth-modal');
 
@@ -159,6 +159,51 @@ function initAuthActions() {
         };
     }
 }
+
+// 在 DOMContentLoaded 或 initAuthEntry 之後加入
+async function checkUserSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    
+    if (!session && window.location.pathname.includes('/user/')) {
+        window.location.href = '/';
+        return;
+    }
+
+    if (session) {
+        const user = session.user;
+        
+        const nameEl = document.getElementById('display-name');
+        const emailEl = document.getElementById('display-email');
+        const idEl = document.getElementById('display-id');
+        const createdEl = document.getElementById('display-created');
+        const avatarEl = document.getElementById('big-avatar');
+
+        if (nameEl) nameEl.innerText = user.user_metadata.full_name || "未設定暱稱";
+        if (emailEl) emailEl.innerText = user.email;
+        if (idEl) idEl.innerText = user.id;
+        if (createdEl) createdEl.innerText = new Date(user.created_at).toLocaleString();
+        
+        if (avatarEl && user.user_metadata.avatar_url) {
+            avatarEl.style.backgroundImage = `url('${user.user_metadata.avatar_url}')`;
+        }
+    }
+}
+
+// --- 4-2. 登出功能 ---
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.onclick = async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) showToast("登出失敗");
+        else {
+            showToast("已成功登出");
+            setTimeout(() => window.location.href = '/', 1000);
+        }
+    };
+}
+
+// 記得執行檢查
+checkUserSession();
 
 // --- 5. 其他工具功能 ---
 function initEmailCopy() {

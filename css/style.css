@@ -559,3 +559,54 @@ body::before {
     font-family: monospace;
     word-break: break-all;
 }
+
+/* 個人頁面專屬輸入框 */
+.edit-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.edit-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.name-input-large {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+}
+
+/* 綁定區塊樣式 */
+.status-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.mini-btn {
+    padding: 5px 15px;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.primary-btn {
+    background: #4a90e2 !important;
+    font-weight: bold;
+}

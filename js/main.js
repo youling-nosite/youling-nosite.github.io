@@ -4,153 +4,241 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 頁面加載完成後執行
-document.addEventListener("DOMContentLoaded", () => {
-    loadNavbar();     // 載入導航列
-    initAuthTabs();   // 初始化彈窗切換
-    initAuthActions(); // 初始化登入註冊按鈕
-    initEmailCopy();  // 初始化郵件複製功能
+// 頁面加載中心控管
+document.addEventListener("DOMContentLoaded", async () => {
+    loadNavbar(); 
+    initEmailCopy();
+    
+    // 取得 Session
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    
+    // 頁面路徑判斷
+    const isUserPage = window.location.pathname.includes('/user/');
+    
+    if (isUserPage) {
+        if (!session) {
+            window.location.href = '/'; 
+        } else {
+            renderUserPage(session.user);
+        }
+    } else {
+        initAuthTabs();
+        initAuthActions();
+    }
+
+    // 全域狀態監聽：一旦狀態改變（如登入/登出），同步更新 UI
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        updateNavbarUserInfo(session?.user);
+        if (event === 'SIGNED_OUT' && isUserPage) {
+            window.location.href = '/';
+        }
+    });
 });
 
-// --- 1. Navbar 載入邏輯 ---
+// --- 1. UI 組件載入 ---
 function loadNavbar() {
     const navbarContainer = document.getElementById("navbar");
     if (!navbarContainer) return;
 
     fetch("/components/navbar.html")
-        .then(res => {
-            if (!res.ok) throw new Error("Navbar file not found");
-            return res.text();
-        })
+        .then(res => res.text())
         .then(data => {
             navbarContainer.innerHTML = data;
             
-            // Navbar 載入後才綁定漢堡選單
+            // 綁定選單開關
             const hamburger = document.getElementById("hamburger");
             const navLinks = document.getElementById("nav-links");
             if (hamburger && navLinks) {
                 hamburger.onclick = () => navLinks.classList.toggle("active");
             }
-
-            // Navbar 載入後才初始化頭像區塊
-            initAuthEntry();
-        })
-        .catch(err => console.error("Navbar 載入失敗:", err));
+            
+            handleAuthEntry();
+            // 初始載入時同步一次 Navbar 狀態
+            supabaseClient.auth.getSession().then(({data}) => updateNavbarUserInfo(data.session?.user));
+        });
 }
 
-// --- 2. 使用者狀態與進入點 ---
-function initAuthEntry() {
+// --- 2. 身份狀態與導航邏輯 ---
+function handleAuthEntry() {
     const authEntry = document.getElementById('auth-entry');
     const authModal = document.getElementById('auth-modal');
-    if (!authEntry || !authModal) return;
+    if (!authEntry) return;
 
     authEntry.onclick = async () => {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
-            window.location.href = '/user/  '; 
-        } else {
+            window.location.href = '/user/'; 
+        } else if (authModal) {
             authModal.classList.add('active'); 
         }
     };
+}
 
+function updateNavbarUserInfo(user) {
     const userNameEl = document.getElementById('user-name');
     const userIdEl = document.getElementById('user-id');
     const userAvatarEl = document.getElementById('user-avatar');
 
-    // 監聽登入狀態改變
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        if (session && session.user) {
-            const user = session.user;
-            if (userNameEl) userNameEl.innerText = user.user_metadata.full_name || "使用者";
-            if (userIdEl) userIdEl.innerText = `ID: ${user.id.substring(0, 8)}`;
-            
-            if (userAvatarEl) {
-                if (user.user_metadata.avatar_url) {
-                    userAvatarEl.src = user.user_metadata.avatar_url;
-                    userAvatarEl.style.display = 'block';
-                } else {
-                    userAvatarEl.style.display = 'none';
-                }
+    if (user) {
+        if (userNameEl) userNameEl.innerText = user.user_metadata.full_name || "使用者";
+        if (userIdEl) userIdEl.innerText = `ID: ${user.id.substring(0, 8)}`;
+        if (userAvatarEl) {
+            if (user.user_metadata.avatar_url) {
+                userAvatarEl.src = user.user_metadata.avatar_url;
+                userAvatarEl.style.display = 'block';
+            } else {
+                userAvatarEl.style.display = 'none'; // 或設置一個預設頭像
             }
-        } else {
-            if (userNameEl) userNameEl.innerText = "訪客";
-            if (userIdEl) userIdEl.innerText = "未登入";
-            if (userAvatarEl) userAvatarEl.style.display = 'none';
         }
-    });
+    } else {
+        if (userNameEl) userNameEl.innerText = "訪客";
+        if (userIdEl) userIdEl.innerText = "未登入";
+        if (userAvatarEl) userAvatarEl.style.display = 'none';
+    }
 }
 
-// --- 3. 彈窗 UI 切換 ---
+// --- 3. 個人資料頁面邏輯 (/user/ 專用) ---
+async function renderUserPage(user) {
+    const avatarEl = document.getElementById('big-avatar');
+    const nameInput = document.getElementById('edit-name');
+    const avatarInput = document.getElementById('avatar-url-input');
+    const emailEl = document.getElementById('display-email');
+    const idEl = document.getElementById('display-id');
+    const createdEl = document.getElementById('display-created');
+    const bindBtn = document.getElementById('bind-google-btn');
+    const saveBtn = document.getElementById('save-profile-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    const metadata = user.user_metadata;
+    if (nameInput) nameInput.value = metadata.full_name || "";
+    if (emailEl) emailEl.innerText = user.email;
+    if (idEl) idEl.innerText = user.id;
+    if (createdEl) createdEl.innerText = new Date(user.created_at).toLocaleDateString();
+    
+    if (avatarEl && metadata.avatar_url) {
+        avatarEl.style.backgroundImage = `url('${metadata.avatar_url}')`;
+        if (avatarInput) avatarInput.value = metadata.avatar_url;
+    }
+
+    // Google 綁定邏輯
+    const isGoogleLinked = user.identities?.some(id => id.provider === 'google');
+    if (bindBtn) {
+        if (isGoogleLinked) {
+            bindBtn.innerText = "已連結 Google";
+            bindBtn.classList.add('linked');
+            bindBtn.disabled = true;
+        } else {
+            bindBtn.onclick = bindGoogleAccount;
+        }
+    }
+
+    if (saveBtn) {
+        saveBtn.onclick = async () => {
+            saveBtn.disabled = true;
+            const originalText = saveBtn.innerText;
+            saveBtn.innerText = "儲存中...";
+            
+            const { error } = await supabaseClient.auth.updateUser({
+                data: { 
+                    full_name: nameInput.value,
+                    avatar_url: avatarInput.value 
+                }
+            });
+
+            if (error) {
+                showToast("更新失敗: " + error.message);
+                saveBtn.disabled = false;
+                saveBtn.innerText = originalText;
+            } else {
+                showToast("設定已儲存！");
+                setTimeout(() => location.reload(), 800);
+            }
+        };
+    }
+
+    if (logoutBtn) {
+        logoutBtn.onclick = async () => {
+            await supabaseClient.auth.signOut();
+            window.location.href = '/';
+        };
+    }
+}
+
+async function bindGoogleAccount() {
+    showToast("正在前往 Google 驗證...");
+    const { error } = await supabaseClient.auth.linkIdentity({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+    });
+    if (error) showToast("連結失敗: " + error.message);
+}
+
+// --- 4. 彈窗 UI 與驗證邏輯 ---
 function initAuthTabs() {
     const tabs = document.querySelectorAll('.auth-tab');
     const authModal = document.getElementById('auth-modal');
     const closeModal = document.getElementById('close-modal');
+    if (!authModal) return;
 
     tabs.forEach(tab => {
         tab.onclick = () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             const isLogin = tab.dataset.tab === 'login';
-            
-            const loginForm = document.getElementById('login-form-container');
-            const regForm = document.getElementById('register-form-container');
-            if (loginForm) loginForm.style.display = isLogin ? 'block' : 'none';
-            if (regForm) regForm.style.display = isLogin ? 'none' : 'block';
+            document.getElementById('login-form-container').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('register-form-container').style.display = isLogin ? 'none' : 'block';
         };
     });
 
-    if (closeModal && authModal) {
+    if (closeModal) {
         closeModal.onclick = () => authModal.classList.remove('active');
-        // 點擊背景關閉
-        authModal.onclick = (e) => {
-            if (e.target === authModal) authModal.classList.remove('active');
-        };
     }
 }
 
-// --- 4-1. 登入/註冊/Google 動作 ---
 function initAuthActions() {
     const authModal = document.getElementById('auth-modal');
+    if (!authModal) return;
 
-    // 註冊邏輯
+    // 登入
+    const loginBtn = document.getElementById('login-submit-btn');
+    if (loginBtn) {
+        loginBtn.onclick = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            if(!email || !password) return showToast("請填寫帳號密碼");
+            
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) return showToast("登入失敗: " + error.message);
+            authModal.classList.remove('active');
+            showToast("歡迎回來！");
+        };
+    }
+
+    // 註冊 (完整版)
     const regBtn = document.getElementById('register-submit-btn');
     if (regBtn) {
         regBtn.onclick = async () => {
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
             const name = document.getElementById('reg-name').value;
-            
-            if (!email || !password) return showToast("請填寫完整資訊");
+            if(!email || !password || !name) return showToast("請完整填寫註冊資訊");
 
             const { error } = await supabaseClient.auth.signUp({
-                email, password, options: { data: { full_name: name } }
+                email,
+                password,
+                options: { data: { full_name: name } }
             });
-            
             if (error) return showToast("註冊失敗: " + error.message);
-            showToast("註冊成功！請檢查郵件驗證");
+            showToast("註冊成功！請至信箱查收驗證信");
             authModal.classList.remove('active');
         };
     }
 
-    // 密碼登入邏輯
-    const loginBtn = document.getElementById('login-submit-btn');
-    if (loginBtn) {
-        loginBtn.onclick = async () => {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-            
-            if (error) return showToast("登入失敗: " + error.message);
-            showToast("歡迎回來！");
-            authModal.classList.remove('active');
-        };
-    }
-
-    // Google 登入邏輯
+    // Google 快速登入
     const googleBtn = document.getElementById('google-login-btn');
     if (googleBtn) {
         googleBtn.onclick = async () => {
+            showToast("跳轉至 Google...");
             await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: { redirectTo: window.location.origin }
@@ -159,83 +247,35 @@ function initAuthActions() {
     }
 }
 
-// 在 DOMContentLoaded 或 initAuthEntry 之後加入
-async function checkUserSession() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    
-    if (!session && window.location.pathname.includes('/user/')) {
-        window.location.href = '/';
-        return;
-    }
-
-    if (session) {
-        const user = session.user;
-        
-        const nameEl = document.getElementById('display-name');
-        const emailEl = document.getElementById('display-email');
-        const idEl = document.getElementById('display-id');
-        const createdEl = document.getElementById('display-created');
-        const avatarEl = document.getElementById('big-avatar');
-
-        if (nameEl) nameEl.innerText = user.user_metadata.full_name || "未設定暱稱";
-        if (emailEl) emailEl.innerText = user.email;
-        if (idEl) idEl.innerText = user.id;
-        if (createdEl) createdEl.innerText = new Date(user.created_at).toLocaleString();
-        
-        if (avatarEl && user.user_metadata.avatar_url) {
-            avatarEl.style.backgroundImage = `url('${user.user_metadata.avatar_url}')`;
-        }
-    }
-}
-
-// --- 4-2. 登出功能 ---
-const logoutBtn = document.getElementById('logout-btn');
-if (logoutBtn) {
-    logoutBtn.onclick = async () => {
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) showToast("登出失敗");
-        else {
-            showToast("已成功登出");
-            setTimeout(() => window.location.href = '/', 1000);
-        }
-    };
-}
-
-// 記得執行檢查
-checkUserSession();
-
-// --- 5. 其他工具功能 ---
-function initEmailCopy() {
-    const emailBtn = document.getElementById("copy-email");
-    const emailStr = "yoiyoi0905@email.com";
-    if (emailBtn) {
-        emailBtn.onclick = async (e) => {
-            e.preventDefault();
-            try {
-                await navigator.clipboard.writeText(emailStr);
-                showToast("已成功複製到剪貼簿");
-            } catch (err) {
-                showToast("複製失敗 😢");
-            }
-        };
-    }
-}
-
+// --- 5. 工具功能 ---
 function showToast(message) {
-    const toastContainer = document.getElementById("toast-container"); 
-    if (!toastContainer) return; 
-
+    let container = document.getElementById("toast-container");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "toast-container";
+        document.body.appendChild(container);
+    }
     const toast = document.createElement("div");
-    toast.classList.add("toast-msg");
+    toast.className = "toast-msg";
     toast.textContent = message;
-    toastContainer.appendChild(toast);
-
-    // 強制重繪觸發動畫
-    toast.offsetHeight; 
-    toast.classList.add("show");
-
+    container.appendChild(toast);
+    
+    // 動態觸發
+    setTimeout(() => toast.classList.add("show"), 10);
     setTimeout(() => {
-        toast.classList.remove("show"); 
+        toast.classList.remove("show");
         setTimeout(() => toast.remove(), 400);
     }, 3000);
+}
+
+function initEmailCopy() {
+    const btn = document.getElementById("copy-email");
+    if (btn) {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText("yoiyoi0905@email.com")
+                .then(() => showToast("已複製郵件地址"))
+                .catch(() => showToast("複製失敗"));
+        };
+    }
 }

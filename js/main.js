@@ -8,7 +8,6 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 document.addEventListener("DOMContentLoaded", async () => {
     loadNavbar(); 
     initEmailCopy();
-    initPasswordToggle(); // 新增：初始化密碼切換功能
     
     // 取得 Session
     const { data: { session } } = await supabaseClient.auth.getSession();
@@ -88,7 +87,7 @@ function updateNavbarUserInfo(user) {
                 userAvatarEl.src = user.user_metadata.avatar_url;
                 userAvatarEl.style.display = 'block';
             } else {
-                userAvatarEl.style.display = 'none'; 
+                userAvatarEl.style.display = 'none'; // 或設置一個預設頭像
             }
         }
     } else {
@@ -196,26 +195,6 @@ function initAuthTabs() {
     }
 }
 
-// 新增：初始化密碼切換按鈕
-function initPasswordToggle() {
-    // 使用事件委託或直接綁定，確保彈窗內的眼睛按鈕有效
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('toggle-password')) {
-            const btn = e.target;
-            const targetId = btn.getAttribute('data-target');
-            const input = document.getElementById(targetId);
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                btn.textContent = '👁️';
-            }
-        }
-    });
-}
-
 function initAuthActions() {
     const authModal = document.getElementById('auth-modal');
     if (!authModal) return;
@@ -235,25 +214,14 @@ function initAuthActions() {
         };
     }
 
-    // 註冊 (更新：包含二次密碼檢查)
+    // 註冊 (完整版)
     const regBtn = document.getElementById('register-submit-btn');
     if (regBtn) {
         regBtn.onclick = async () => {
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
-            const confirmPassword = document.getElementById('reg-password-confirm').value; // 新增
             const name = document.getElementById('reg-name').value;
-            
-            if(!email || !password || !name || !confirmPassword) return showToast("請完整填寫註冊資訊");
-
-            // 密碼一致性檢查
-            if (password !== confirmPassword) {
-                return showToast("兩次輸入的密碼不一致！");
-            }
-
-            if (password.length < 6) {
-                return showToast("密碼至少需要 6 位");
-            }
+            if(!email || !password || !name) return showToast("請完整填寫註冊資訊");
 
             const { error } = await supabaseClient.auth.signUp({
                 email,

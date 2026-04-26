@@ -9,31 +9,16 @@
       <a href="/lunguage/" class="nav-btn"><span>U語</span></a>
     </div>
 
-    <div id="auth-section">
-      <button id="open-login-btn" class="nav-btn"><span>登入</span></button>
-      <div id="user-profile" style="display: none; align-items: center; gap: 10px; cursor: pointer;">
-        <div style="text-align: right; line-height: 1.2;">
-          <div id="user-name" style="font-weight: bold; font-size: 14px; color: white;"></div>
-          <div id="user-id" style="font-size: 10px; color: rgba(255,255,255,0.5);"></div>
-        </div>
-        <img id="user-avatar" src="" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2);">
+    <div id="auth-entry" class="user-status-container" style="cursor: pointer;">
+      <div class="user-info">
+        <div id="user-name" class="name-text">訪客</div>
+        <div id="user-id" class="id-text">未登入</div>
+      </div>
+      <div class="avatar-wrapper">
+        <img id="user-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Xw8AAasBRue9Wv8AAAAASUVORK5CYII=" class="avatar-img">
       </div>
     </div>
 
     <button class="hamburger" id="hamburger">☰</button>
   </div>
 </nav>
-
-<div id="login-modal" class="modal-overlay">
-  <div class="modal-content card">
-    <button class="close-modal">×</button>
-    <h2 style="text-align: center; margin-bottom: 20px;">帳號登入</h2>
-    <div class="query-form">
-      <button id="google-login-btn" class="social-btn" style="justify-content: center; background: white; color: #333;">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-        使用 Google 登入
-      </button>
-      <div style="text-align: center; margin: 10px 0; font-size: 12px; color: gray;">目前僅支援 Google 快速登入</div>
-    </div>
-  </div>
-</div>

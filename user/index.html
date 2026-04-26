@@ -13,62 +13,39 @@
     <main class="container">
         <h1 style="text-align:center; margin: 40px 0;">個人中心</h1>
 
-        <div class="card user-panel" style="max-width: 500px; margin: 0 auto;">
+        <div class="card user-panel" style="max-width: 600px; margin: 0 auto;">
             <div class="user-header">
-                <div class="large-avatar" id="big-avatar"></div>
-                
-                <div class="info-group">
-                    <input type="text" id="avatar-url-input" placeholder="貼上新頭像圖片網址" class="edit-input" style="font-size: 12px; margin-top: 10px;">
-                </div>
-                
-                <div style="margin-top: 15px;">
-                    <input type="text" id="edit-name" class="edit-input name-input-large" placeholder="輸入新暱稱">
-                    <p id="display-email" style="opacity: 0.6; margin-top: 8px; font-size: 14px;"></p>
-                </div>
+                <div class="large-avatar" id="big-avatar">
+                    </div>
+                <h2 id="display-name">載入中...</h2>
+                <p id="display-email" style="opacity: 0.6;"></p>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 25px 0;">
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
 
             <div class="user-details">
                 <div class="info-group">
-                    <label>帳號連結狀態</label>
-                    <div class="status-box">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="16">
-                            <span>Google 帳號</span>
-                        </div>
-                        <button id="bind-google-btn" class="mini-btn">檢查中...</button>
-                    </div>
+                    <label>使用者唯一 ID</label>
+                    <div class="info-value" id="display-id">---</div>
                 </div>
-                
                 <div class="info-group">
-                    <label>使用者唯一識別碼 (UID)</label>
-                    <div class="info-value" id="display-id">取得中...</div>
+                    <label>帳號建立時間</label>
+                    <div class="info-value" id="display-created">---</div>
                 </div>
             </div>
 
-            <div class="action-buttons" style="margin-top: 30px; display: flex; flex-direction: column; gap: 12px;">
-                
-                <button id="save-profile-btn" class="primary-btn">
-                    儲存所有修改
+            <div class="action-buttons" style="margin-top: 30px; display: flex; gap: 10px;">
+                <button id="logout-btn" class="nav-btn" style="background: rgba(255, 50, 50, 0.2); flex: 1;">
+                    <span>登出帳號</span>
                 </button>
-                
-                <div style="display: flex; gap: 10px;">
-                    <button id="logout-btn" class="nav-btn" style="flex: 1; justify-content: center; background: rgba(255, 71, 87, 0.15); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2);">
-                        <span>登出帳號</span>
-                    </button>
-                    
-                    <button onclick="location.href='/'" class="nav-btn" style="flex: 1; justify-content: center;">
-                        <span>回到首頁</span>
-                    </button>
-                </div>
-                
+                <button onclick="location.href='/'" class="nav-btn" style="flex: 1;">
+                    <span>回到首頁</span>
+                </button>
             </div>
         </div>
     </main>
 
     <div id="toast-container"></div>
-
     <script src="/js/main.js"></script>
 </body>
 </html>

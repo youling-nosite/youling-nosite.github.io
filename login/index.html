@@ -1,6 +1,6 @@
 <div id="auth-modal" class="modal-overlay">
   <div class="modal-content card">
-    <button class="close-modal" id="close-modal" aria-label="關閉">&times;</button>
+    <button class="close-modal" id="close-modal">x</button>
     
     <div class="auth-tabs">
       <button class="auth-tab active" data-tab="login">登入</button>
@@ -9,44 +9,24 @@
 
     <div id="login-form-container" class="auth-form-content">
       <div class="query-form">
-        <input type="email" id="login-email" placeholder="電子郵件" required>
-        
-        <div class="password-group">
-          <input type="password" id="login-password" placeholder="密碼" required>
-          <button type="button" class="toggle-password" data-target="login-password">👁️</button>
-        </div>
-
-        <button id="login-submit-btn" class="primary-btn">進入小站</button>
-        
+        <input type="email" id="login-email" placeholder="電子郵件">
+        <input type="password" id="login-password" placeholder="密碼">
+        <button id="login-submit-btn">進入小站</button>
         <div class="divider"><span>或</span></div>
-        
         <button id="google-login-btn" class="social-btn">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-          <span>Google 快速登入</span>
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+          Google 快速登入
         </button>
       </div>
     </div>
 
     <div id="register-form-container" class="auth-form-content" style="display: none;">
       <div class="query-form">
-        <input type="text" id="reg-name" placeholder="使用者暱稱" required>
-        <input type="email" id="reg-email" placeholder="電子郵件" required>
-        
-        <div class="password-group">
-          <input type="password" id="reg-password" placeholder="設定密碼 (至少 6 位)" required>
-          <button type="button" class="toggle-password" data-target="reg-password">👁️</button>
-        </div>
-
-        <div class="password-group">
-          <input type="password" id="reg-password-confirm" placeholder="確認密碼" required>
-          <button type="button" class="toggle-password" data-target="reg-password-confirm">👁️</button>
-        </div>
-
-        <button id="register-submit-btn" class="primary-btn">建立帳號</button>
+        <input type="text" id="reg-name" placeholder="使用者暱稱">
+        <input type="email" id="reg-email" placeholder="電子郵件">
+        <input type="password" id="reg-password" placeholder="設定密碼">
+        <button id="register-submit-btn">建立帳號</button>
       </div>
-      <p style="font-size: 11px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 15px;">
-        註冊即表示同意本站之使用者規範
-      </p>
     </div>
   </div>
 </div>

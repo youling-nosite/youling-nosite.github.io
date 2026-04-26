@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於悠靈</title>
+    <title>關於悠靈 - 悠靈の小站</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="navbar"></div>
     
-    <div class="about">
-      <h1 style="text-align:center;">關於我</h1>
+    <main class="container">
+        <h1 style="text-align:center; margin-top: 40px;">關於我</h1>
 
-      <div class="card">
-        <p>這人很神祕，什麼也沒留下<br></p>
-        <p>反正就是 TODO</p>
-      </div>
-
-      <div class="about-container">
-        
-        <div class="about-card">
-          <h2>個人檔案</h2>
-          <ul class="profile-list">
-            <li>暱稱：悠哉的悠靈</li>
-            <li>年齡：16 歲</li>
-            <li>職業：學生</li>
-            <li>國籍：台灣</li>
-          </ul>
+        <div class="card" style="text-align: center; max-width: 800px; margin: 20px auto;">
+            <p>這人很神祕，什麼也沒留下</p>
+            <p style="opacity: 0.6; font-size: 0.9em;">(反正就是 TODO... 施工中 🚧)</p>
         </div>
 
-        <div class="about-card">
-          <h2>自我介紹</h2>
-          <p>目前還在施工中，之後會補上更多關於我的事情！</p>
+        <div class="about-container">
+            
+            <section class="about-card">
+                <h2>個人檔案</h2>
+                <ul class="profile-list">
+                    <li><strong>暱稱：</strong> 悠哉的悠靈</li>
+                    <li><strong>年齡：</strong> 16 歲</li>
+                    <li><strong>職業：</strong> 學生</li>
+                    <li><strong>國籍：</strong> 台灣</li>
+                </ul>
+            </section>
+
+            <section class="about-card">
+                <h2>自我介紹</h2>
+                <div style="line-height: 1.6;">
+                    <p>//TODO</p>
+                </div>
+            </section>
+
+            <section class="about-card">
+                <h2>聯絡方式</h2>
+                <div class="social-links">
+                    <a href="#" class="social-btn" id="copy-email">
+                        <img src="/assets/images/gmail.png" alt="Gmail">
+                        <span>Email 聯繫</span>
+                    </a>
+
+                    <a href="https://github.com/ItzYouLingTW" target="_blank" rel="noopener" class="social-btn">
+                        <img src="/assets/images/github.png" alt="GitHub">
+                        <span>GitHub 專頁</span>
+                    </a>
+
+                    <a href="https://discord.gg/WJuCEwpNQv" target="_blank" rel="noopener" class="social-btn">
+                        <img src="/assets/images/discord.png" alt="Discord">
+                        <span>Discord 社群</span>
+                    </a>
+                </div>
+            </section>
+
         </div>
-
-        <div class="about-card">
-          <h2>聯絡方式</h2>
-          <div class="social-links">
-            <a href="#" class="social-btn" id="copy-email">
-              <img src="/assets/images/gmail.png" alt="gmail">
-              <span>Email</span>
-            </a>
-
-            <a href="https://github.com/ItzYouLingTW" target="_blank" rel="noopener noreferrer" class="social-btn">
-              <img src="/assets/images/github.png" alt="github">
-              <span>GitHub</span>
-            </a>
-
-            <a href="https://discord.gg/WJuCEwpNQv" target="_blank" rel="noopener noreferrer" class="social-btn">
-              <img src="/assets/images/discord.png" alt="discord">
-              <span>Discord</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </main>
 
     <div id="toast-container"></div>
-
     <script src="/js/main.js"></script>
-  </body>
+</body>
 </html>

@@ -1,7 +1,8 @@
 <nav class="navbar">
-  <h2>悠靈の小站</h2>
+  <h2 style="cursor: pointer;" onclick="location.href='/'">悠靈の小站</h2>
     
-  <div style="display: flex; align-items: center; gap: 20px;">
+  <div style="display: flex; align-items: center; gap: 15px;">
+    
     <div class="nav-links" id="nav-links">
       <a href="/" class="nav-btn"><span>首頁</span></a>
       <a href="/about/" class="nav-btn"><span>關於我</span></a>
@@ -9,16 +10,16 @@
       <a href="/lunguage/" class="nav-btn"><span>U語</span></a>
     </div>
 
-    <div id="auth-entry" class="user-status-container" style="cursor: pointer;">
+    <div id="auth-entry" class="user-status-container">
       <div class="user-info">
-        <div id="user-name" class="name-text">訪客</div>
-        <div id="user-id" class="id-text">未登入</div>
+        <div id="user-name" class="name-text">載入中...</div>
+        <div id="user-id" class="id-text">Checking</div>
       </div>
       <div class="avatar-wrapper">
-        <img id="user-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Xw8AAasBRue9Wv8AAAAASUVORK5CYII=" class="avatar-img">
+        <img id="user-avatar" src="" alt="User" class="avatar-img" style="display: none;">
       </div>
     </div>
 
-    <button class="hamburger" id="hamburger">☰</button>
+    <button class="hamburger" id="hamburger" aria-label="選單">☰</button>
   </div>
 </nav>

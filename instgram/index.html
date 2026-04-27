@@ -172,7 +172,7 @@
                 id: 5,
                 author: 'nlhs2718',
                 avatar: '/assets/images/nlhs2718.jpg',
-                image: '/assets/images/post4.png',
+                image: '/assets/images/post4.jpg',
                 likes: 31,
                 isLiked: false,
                 caption: `致青春\n我們永遠是彼此心中的第一名\n永遠是最棒的18班\n-\n-\n-\n10/31內高運動會`,
@@ -183,10 +183,9 @@
                 id: 6,
                 author: 'zhu_0207',
                 avatar: '/assets/images/zhu_0207.jpg',
-                image: ['/assets/images/post5-1.png', '/assets/images/post5-2.png', '/assets/images/post5-3.png'],
-                likes: 6767,
+                image: ['/assets/images/post5-1.jpg', '/assets/images/post5-2.jpg', '/assets/images/post5-3.jpg '],
+                likes: 6776,
                 isLiked: false,
-                displayCommentCount: 823, 
                 caption: `We got married today 🤍💍\n-\n#LoveIsLove\n#TwoBrides`,
                 date: '4月26日',
                 comments: [
@@ -232,7 +231,13 @@
                                 <img src={post.avatar} className="w-8 h-8 min-w-[32px] min-h-[32px] rounded-full object-cover flex-shrink-0" alt="author" />
                                 <div>
                                     <span className="font-semibold text-sm mr-2">{post.author}</span>
-                                    <span className="text-sm whitespace-pre-wrap">{post.caption}</span>
+                                    <span className="text-sm whitespace-pre-wrap">
+                                        {post.caption.split(/(#\S+)/g).map((part, index) => (
+                                            part.startsWith('#') 
+                                                ? <span key={index} className="text-[#00376b] cursor-pointer hover:opacity-70">{part}</span> 
+                                                : part
+                                        ))}
+                                    </span>
                                     <div className="text-[12px] text-gray-500 mt-1">{post.date}</div>
                                 </div>
                             </div>
@@ -410,7 +415,13 @@
 
                     <div className="px-3 text-sm mb-1 mt-1">
                         <span className="font-semibold mr-2">{post.author}</span>
-                        <span className="whitespace-pre-wrap">{post.caption}</span>
+                        <span className="whitespace-pre-wrap">
+                            {post.caption.split(/(#\S+)/g).map((part, index) => (
+                                part.startsWith('#') 
+                                    ? <span key={index} className="text-[#00376b] cursor-pointer hover:opacity-70">{part}</span> 
+                                    : part
+                            ))}
+                        </span>
                     </div>
                     
                     {/* 查看所有留言的按鈕 */}

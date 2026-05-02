@@ -1,0 +1,46 @@
+#toast-container {
+  position: fixed;
+  top: 20px; 
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.user-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.large-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #444;
+    margin: 0 auto 15px;
+    border: 3px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.info-group {
+    margin-bottom: 15px;
+}
+
+.info-group label {
+    display: block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 5px;
+}
+
+.info-value {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    word-break: break-all;
+}
